@@ -69,6 +69,10 @@
                 {
                     "name": "Rabbit",
                     "svgPath": "assets/biomes_data/mountain/rabbit.svg"
+                },
+                {
+                    "name": "Mountain Goat",
+                    "svgPath": "assets/biomes_data/mountain/mountain_goat.svg"
                 }
             ]
         },
