@@ -2,8 +2,8 @@
     "biomes": [
         {
             "name": "arctic",
-            "primaryColor": "#E6F7FF",
-            "secondaryColor": "#CCE6FF",
+            "primaryColor": "#CCE6FF",
+            "secondaryColor": "#E6F7FF",
             "backgroundPath": "assets/biomes_data/arctic/arctic_background_midjourney.png",
             "icon": {
                 "name": "Snowflake",
@@ -75,8 +75,8 @@
         {
             "name": "ocean",
             "primaryColor": "#00B0D8",
-            "secondaryColor": "#0091AC",
-            "backgroundPath": "assets/biomes_data/mountain/mountain_background.png",
+            "secondaryColor": "4DCADB",
+            "backgroundPath": "assets/biomes_data/ocean/ocean_background_midjourney.png",
             "icon": {
                 "name": "Wave",
                 "svgPath": "assets/biomes_data/ocean/wave.svg"
