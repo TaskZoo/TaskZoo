@@ -99,7 +99,7 @@ class AnimalBuilderState extends State<AnimalBuilder> {
         return GestureDetector(
           onTap: addShape,
           child: Container(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               color: widget.backgroundColor,
