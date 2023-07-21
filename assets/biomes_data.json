@@ -96,12 +96,12 @@
                     "svgPath": "assets/biomes_data/ocean/octopus.svg"
                 },
                 {
-                    "name": "Sea Turtle",
-                    "svgPath": "assets/biomes_data/ocean/sea_turtle.svg"
-                },
-                {
                     "name": "Seahorse",
                     "svgPath": "assets/biomes_data/ocean/seahorse.svg"
+                },
+                {
+                    "name": "Sea Turtle",
+                    "svgPath": "assets/biomes_data/ocean/sea_turtle.svg"
                 }
             ]
         }
