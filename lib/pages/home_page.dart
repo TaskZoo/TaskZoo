@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:taskzoo/widgets/home/Appbar.dart';
 import 'package:taskzoo/widgets/tasks/add_task.dart';
 import 'package:taskzoo/widgets/tasks/task_card.dart';
-import 'package:taskzoo/widgets/home/animal_builder.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -13,7 +12,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<TaskCard> _tasks = [];
-  final GlobalKey<AnimalBuilderState> _animalBuilderKey = GlobalKey();
   late String selectedSchedule;
   List<String> selectedTags = [];
 
@@ -89,25 +87,11 @@ class _HomePageState extends State<HomePage> {
         onUpdateSelectedTags: updateSelectedTags,
         tasks: _tasks,
       ),
-      body: ListView(
-        children: [
-          AnimalBuilder(
-            svgPath: "assets/biomes_data/mountain/wolf.svg",
-            biomeIcon: Icons.terrain_outlined,
-            backgroundColor: Color(0xffA1CC40),
-            key: _animalBuilderKey,
-          ),
-          FloatingActionButton(
-            onPressed: () => _animalBuilderKey.currentState?.addShape(),
-            child: const Icon(Icons.add),
-          ),
-          GridView.count(
-            key: ValueKey(_tasks.length),
-            crossAxisCount: 2,
-            shrinkWrap: true,
-            children: getFilteredTagTasks(selectedSchedule),
-          ),
-        ],
+      body: GridView.count(
+        key: ValueKey(_tasks.length),
+        crossAxisCount: 2,
+        shrinkWrap: true,
+        children: getFilteredTagTasks(selectedSchedule),
       ),
     );
   }
