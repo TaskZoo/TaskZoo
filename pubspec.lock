@@ -193,6 +193,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  dimensions_theme:
+    dependency: "direct main"
+    description:
+      name: dimensions_theme
+      sha256: "053468a23e0c36affc8a33274d919ad67cec9c545b3865b7e8259cfbdb5f6a19"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   equatable:
     dependency: transitive
     description:
