@@ -18,11 +18,11 @@ class _CustomNavBarState extends State<CustomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).cardColor,
       child: SafeArea(
         child: Container(
           height: 50,
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).cardColor,
           child: Stack(
             alignment: Alignment.center,
             children: [

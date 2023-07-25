@@ -34,18 +34,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'TaskZoo',
       theme: ThemeData(
-        //primaryColor is for items when selected
-        primaryColor: Colors.white,
-        //scaffoldBackgroundColor is for the background
-        scaffoldBackgroundColor: Colors.white,
-        //unslectedWidgetColor is for icons when unselected
-        unselectedWidgetColor: Color.fromARGB(255, 201, 201, 201),
-        //dividerColor is for the lines
-        dividerColor: lineColor,
-        //IndicatorColor is for Icons
+        brightness: Brightness.light,
+        // darker white that is background of all pages besides zoo
+        scaffoldBackgroundColor: Color.fromARGB(255, 245, 245, 245),
+        // solid white that is color of any card
+        cardColor: Colors.white,
+        // black color for icons
         indicatorColor: Colors.black,
-        //dialogBackgroundColor is for extras, selections & containers
-        dialogBackgroundColor: Colors.black,
       ),
       home: MyHomePage(title: 'TaskZoo Task Page'),
     );
