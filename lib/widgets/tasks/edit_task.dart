@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
 const maxCharLimit = 20;
-const selectedColor = Colors.black;
-const backgroundColor = Color.fromRGBO(141, 183, 182, 1);
-const unselectedColor = Color.fromRGBO(175, 210, 210, 1);
-const lineColor = Color.fromRGBO(140, 146, 146, 1);
 
 class EditTaskSheet extends StatefulWidget {
   final String title;
@@ -78,12 +74,12 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                const Text(
+                Text(
                   'Edit Task',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: backgroundColor,
+                    color: Theme.of(context).indicatorColor,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -114,10 +110,10 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
                           Divider(color: Theme.of(context).dividerColor),
                           const SizedBox(height: 16),
                           _buildBiDailySwitch(),
-                          const Divider(color: Colors.grey),
+                          Divider(color: Theme.of(context).dividerColor),
                           _buildWeeklySwitch(),
                           if (_weekly) _buildDaysPerWeekSelector(),
-                          const Divider(color: Colors.grey),
+                          Divider(color: Theme.of(context).dividerColor),
                           _buildMonthlySwitch(),
                           if (_monthly) _buildDaysPerMonthSelector()
                         ],
@@ -166,7 +162,7 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25.0),
           borderSide: BorderSide(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).indicatorColor,
           ),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20),
@@ -204,11 +200,11 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
                   child: Text(
                     ['M', 'T', 'W', 'T', 'F', 'S', 'S'][i],
                     style: TextStyle(
-                        color: _daysOfWeek[i] ? Colors.white : Colors.black),
+                        color: _daysOfWeek[i] ? Theme.of(context).cardColor : Theme.of(context).indicatorColor),
                   ),
                 ),
                 selected: _daysOfWeek[i],
-                selectedColor: Theme.of(context).primaryColor,
+                selectedColor: Theme.of(context).indicatorColor,
                 onSelected: _biDaily || _weekly || _monthly
                     ? null
                     : (selected) {
@@ -256,7 +252,7 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
                     updateSelectionOptionAndState();
                   });
                 },
-          activeColor: Theme.of(context).primaryColor,
+          activeColor: Theme.of(context).indicatorColor,
         ),
       ),
     );
@@ -288,7 +284,7 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
                     updateSelectionOptionAndState();
                   });
                 },
-          activeColor: Theme.of(context).primaryColor,
+          activeColor: Theme.of(context).indicatorColor,
         ),
       ),
     );
@@ -320,7 +316,7 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
                     updateSelectionOptionAndState();
                   });
                 },
-          activeColor: Theme.of(context).primaryColor,
+          activeColor: Theme.of(context).indicatorColor,
         ),
       ),
     );
@@ -329,8 +325,8 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
   Widget _buildSubmitButton(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Colors.white,
+        backgroundColor: Theme.of(context).indicatorColor,
+        foregroundColor: Theme.of(context).cardColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
         ),
