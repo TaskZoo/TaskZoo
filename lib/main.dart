@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dimensions_theme/dimensions_theme.dart';
 
 import 'package:taskzoo/pages/home_page.dart';
 import 'package:taskzoo/pages/zoo_page.dart';
@@ -31,8 +32,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'TaskZoo',
+
+      // getting info for how to do ThemeData at https://stackoverflow.com/questions/60232070/how-to-implement-dark-mode-and-light-mode-in-flutter
       theme: ThemeData(
+        // What brightness we are defining
         brightness: Brightness.light,
+
         // darker white that is background of all pages besides zoo
         scaffoldBackgroundColor: Color.fromARGB(255, 245, 245, 245),
         // solid white that is color of any card
@@ -41,6 +46,16 @@ class MyApp extends StatelessWidget {
         indicatorColor: Colors.black,
         // gray color used throughout the app
         dividerColor: Color.fromARGB(255, 123, 123, 123),
+
+        extensions: [
+          // the Dimensions extension allows us to use inset/radii/border with like a theme
+          // for our use case, we define the medium value as below and use this throughout the app
+          Dimensions(
+            insets: InsetDimensions.fromMedium(20),
+            radii: RadiusDimensions.fromMedium(15),
+            borderWidths: BorderWidthDimensions.fromMedium(2)
+          ),
+        ],
       ),
       home: MyHomePage(title: 'TaskZoo Task Page'),
     );
