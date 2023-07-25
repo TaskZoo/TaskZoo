@@ -5,9 +5,9 @@ import 'package:taskzoo/widgets/preference_service.dart';
 
 import 'package:taskzoo/widgets/zoo/AnimalBuilder.dart';
 
-import 'package:taskzoo/models/biomes_model.dart';
+import 'package:taskzoo/misc/biomes_model.dart';
 
-import 'package:taskzoo/notifiers/zoo_notifier.dart';
+import 'package:taskzoo/misc/zoo_notifier.dart';
 
 class ZooBody extends StatelessWidget {
   final Biomes biomesData;

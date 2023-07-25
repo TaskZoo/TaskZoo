@@ -8,9 +8,9 @@ import 'package:taskzoo/widgets/zoo/Appbar.dart';
 import 'package:taskzoo/widgets/zoo/BackgroundImage.dart';
 import 'package:taskzoo/widgets/zoo/ZooBody.dart';
 
-import 'package:taskzoo/models/biomes_model.dart';
+import 'package:taskzoo/misc/biomes_model.dart';
 
-import 'package:taskzoo/notifiers/zoo_notifier.dart';
+import 'package:taskzoo/misc/zoo_notifier.dart';
 
 class ZooPage extends StatefulWidget {
   final PreferenceService preferenceService;
