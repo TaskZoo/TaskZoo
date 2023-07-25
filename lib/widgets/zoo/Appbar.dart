@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:dimensions_theme/dimensions_theme.dart';
 
 import 'package:taskzoo/misc/biomes_model.dart';
 
@@ -42,7 +43,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 color: zooNotifier.currentBiome == iconIndex
                     ? Colors.black
                     : Colors.white,
-                width: 2.0, // adjust width as needed
+                width: Dimensions.of(context).borderWidths.medium, // adjust width as needed
               ),
             ),
             child: FittedBox(

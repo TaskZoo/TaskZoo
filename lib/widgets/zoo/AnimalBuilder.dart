@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dimensions_theme/dimensions_theme.dart';
+
 import 'package:taskzoo/widgets/isar_service.dart';
 import 'package:taskzoo/widgets/preference_service.dart';
 import 'package:taskzoo/widgets/zoo/animalpieces.dart';
@@ -150,9 +152,9 @@ class AnimalBuilderState extends State<AnimalBuilder> {
         return GestureDetector(
           onTap: addShape,
           child: Container(
-            padding: const EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(Dimensions.of(context).insets.smaller),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(Dimensions.of(context).radii.medium),
               color: widget.backgroundColor,
             ),
             child: SvgPicture.string(

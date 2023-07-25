@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:taskzoo/widgets/isar_service.dart';
 import 'package:taskzoo/widgets/preference_service.dart';
+import 'package:dimensions_theme/dimensions_theme.dart';
 
 import 'package:taskzoo/widgets/zoo/AnimalBuilder.dart';
 
@@ -36,12 +37,12 @@ class ZooBody extends StatelessWidget {
     return GridView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
       itemCount: animals.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 20.0,
-        mainAxisSpacing: 20.0,
+        crossAxisSpacing: Dimensions.of(context).insets.medium,
+        mainAxisSpacing: Dimensions.of(context).insets.medium,
       ),
       itemBuilder: (BuildContext context, int index) {
         return AnimalBuilder(
