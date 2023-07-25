@@ -9,7 +9,7 @@ import 'package:taskzoo/pages/settings_page.dart';
 
 import 'package:taskzoo/widgets/home/navbar.dart';
 
-import 'package:taskzoo/notifiers/zoo_notifier.dart';
+import 'package:taskzoo/misc/zoo_notifier.dart';
 import 'package:taskzoo/widgets/isar_service.dart';
 import 'package:taskzoo/widgets/preference_service.dart';
 
