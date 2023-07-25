@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taskzoo/widgets/home/Appbar.dart';
 import 'package:taskzoo/widgets/preference_service.dart';
-import 'package:taskzoo/widgets/stats/task_info_bar.dart';
+import 'package:taskzoo/widgets/home/task_info_bar.dart';
 import 'package:taskzoo/widgets/tasks/add_task.dart';
 import 'package:taskzoo/widgets/tasks/rear_task_card_item.dart';
 import 'package:taskzoo/widgets/tasks/task.dart';
