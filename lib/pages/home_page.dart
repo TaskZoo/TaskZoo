@@ -1,7 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dimensions_theme/dimensions_theme.dart';
+
 import 'package:taskzoo/widgets/home/Appbar.dart';
 import 'package:taskzoo/widgets/preference_service.dart';
 import 'package:taskzoo/widgets/home/HomeStatsCard.dart';
@@ -66,37 +67,46 @@ class _HomePageState extends State<HomePage>
             selectedTags: selectedTags,
           ),
           Expanded(
-            child: ValueListenableBuilder<String>(
-              valueListenable: selectedSchedule,
-              builder: (context, value, child) {
-                return StreamBuilder<List<Task>>(
-                  stream: widget.service.filterTasksByScheduleAndSelectedTags(
-                    value,
-                    selectedTags,
-                  ),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<Task>> snapshot) {
-                    if (snapshot.hasData) {
-                      final tasks = snapshot.data!;
-                      return GridView.count(
-                        crossAxisCount: 2,
-                        children: tasks
-                            .map(
-                              (task) => TaskCard(
-                                  task: task,
-                                  service: widget.service,
-                                  preferenceService: widget.preferenceService),
-                            )
-                            .toList(),
-                      );
-                    } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  },
-                );
-              },
+            child: Padding(
+              padding: EdgeInsets.all(Dimensions.of(context)
+                  .insets
+                  .medium), // Move the Padding widget here
+              child: ValueListenableBuilder<String>(
+                valueListenable: selectedSchedule,
+                builder: (context, value, child) {
+                  return StreamBuilder<List<Task>>(
+                    stream: widget.service.filterTasksByScheduleAndSelectedTags(
+                      value,
+                      selectedTags,
+                    ),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<Task>> snapshot) {
+                      if (snapshot.hasData) {
+                        final tasks = snapshot.data!;
+                        return GridView.count(
+                          mainAxisSpacing: Dimensions.of(context).insets.medium,
+                          crossAxisSpacing:
+                              Dimensions.of(context).insets.medium,
+                          crossAxisCount: 2,
+                          children: tasks
+                              .map(
+                                (task) => TaskCard(
+                                    task: task,
+                                    service: widget.service,
+                                    preferenceService:
+                                        widget.preferenceService),
+                              )
+                              .toList(),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    },
+                  );
+                },
+              ),
             ),
           ),
         ],

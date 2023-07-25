@@ -76,7 +76,7 @@ class _TaskCardState extends State<TaskCard> {
     _setCompletionStatus(schedule);
 
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(0.0),
       child: GestureDetector(
         onTap: () {
           setState(() {
