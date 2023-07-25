@@ -18,14 +18,13 @@ class DailyPercentCompletedCard extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),
-          color: Theme.of(context).primaryColor,
-          border: Border.all(color: Colors.black, width: 2.0),
+          color: Theme.of(context).cardColor,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Text(
-              'percent tasks completed',
+              'Percent Tasks Completed',
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -111,7 +110,7 @@ class BarChartPainter extends CustomPainter {
 
       // Draw label
       textPainter.text = TextSpan(
-        text: entry.key[0].toLowerCase(),
+        text: entry.key[0].toUpperCase(),
         style: const TextStyle(
           color: Colors.black,
           fontSize: 12,

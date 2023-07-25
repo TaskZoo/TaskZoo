@@ -11,7 +11,7 @@ class SettingsPage extends StatelessWidget {
       ),
       bottomNavigationBar: BottomAppBar(
         height: 50,
-        color: Theme.of(context).unselectedWidgetColor,
+        color: Theme.of(context).cardColor,
         child: IconButton(
           icon: const Icon(Icons.close),
           onPressed: () {

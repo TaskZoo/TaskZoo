@@ -37,8 +37,7 @@ class MonthTotalTasksCompletedCard extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
-              color: Theme.of(context).primaryColor,
-              border: Border.all(color: Colors.black, width: 2.0),
+              color: Theme.of(context).cardColor,
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15.0),
@@ -48,7 +47,7 @@ class MonthTotalTasksCompletedCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'total tasks completed',
+                      'Total Tasks Completed',
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -66,13 +65,13 @@ class MonthTotalTasksCompletedCard extends StatelessWidget {
                         borderData: FlBorderData(show: false),
                         lineBarsData: [
                           LineChartBarData(
-                            gradient: lineChartGradient,
+                            color: Theme.of(context).indicatorColor,
                             spots: spots,
                             isCurved: true,
                             dotData: FlDotData(show: false),
                             belowBarData: BarAreaData(
                               show: true,
-                              gradient: lineChartGradient,
+                              color: Theme.of(context).indicatorColor,
                             ),
                           ),
                         ],
@@ -91,9 +90,10 @@ class MonthTotalTasksCompletedCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                '${data.length} day history',
+                '${data.length} Day History',
                 style: TextStyle(
                   fontSize: 12,
+                  color: Theme.of(context).cardColor,
                 ),
                 textAlign: TextAlign.center,
               ),

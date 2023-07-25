@@ -47,8 +47,7 @@ class CurrentProductivityCard extends StatelessWidget {
             padding: const EdgeInsets.all(15.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
-              color: Theme.of(context).primaryColor,
-              border: Border.all(color: Colors.black, width: 2.0),
+              color: Theme.of(context).cardColor,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -103,7 +102,7 @@ class CurrentProductivityCard extends StatelessWidget {
                                 color: Theme.of(context).indicatorColor),
                           ),
                           Text(
-                            'current \nproductivity',
+                            'Current \nProductivity',
                             style:
                                 TextStyle(fontSize: 16, color: Colors.black45),
                             textAlign: TextAlign.center,

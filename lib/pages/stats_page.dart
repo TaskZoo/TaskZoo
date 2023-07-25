@@ -11,13 +11,13 @@ class StatsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var dailyPercentCompletedTestData = {
-      "mon": 0.3,
-      "tue": 0.1,
-      "wed": 0.0,
-      "thu": 0.5,
-      "fri": 1.0,
-      "sat": 0.6,
-      "sun": 0.1,
+      "Mon": 0.3,
+      "Tue": 0.1,
+      "Wed": 0.0,
+      "Thu": 0.5,
+      "Fri": 1.0,
+      "Sat": 0.6,
+      "Sun": 0.1,
     };
 
     List<int> monthTotalCompletedTestData = [
@@ -31,7 +31,7 @@ class StatsPage extends StatelessWidget {
       5,
       7,
       16,
-      18,
+      0,
       11,
       12,
       17,
@@ -58,7 +58,7 @@ class StatsPage extends StatelessWidget {
         Expanded(
           child: CurrentProductivityCard(
             currentProductivity: 0.75,
-            circularProgressStroke: 20,
+            circularProgressStroke: 15,
             outlineStrokeWidth: 2,
           ),
         ),
@@ -68,7 +68,7 @@ class StatsPage extends StatelessWidget {
         Expanded(
           child: DailyPercentCompletedCard(
             data: dailyPercentCompletedTestData,
-            barWidth: 20,
+            barWidth: 15,
           ),
         ),
         Container(
@@ -86,7 +86,7 @@ class StatsPage extends StatelessWidget {
   ),
   bottomNavigationBar: BottomAppBar(
     height: 50,
-    color: Theme.of(context).primaryColor,
+    color: Theme.of(context).cardColor,
     child: IconButton(
       icon: const Icon(Icons.close),
       onPressed: () {
