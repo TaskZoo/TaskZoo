@@ -41,6 +41,8 @@ class MyApp extends StatelessWidget {
         cardColor: Colors.white,
         // black color for icons
         indicatorColor: Colors.black,
+        // gray color used throughout the app
+        dividerColor: Color.fromARGB(255, 123, 123, 123),
       ),
       home: MyHomePage(title: 'TaskZoo Task Page'),
     );

@@ -104,7 +104,7 @@ class CurrentProductivityCard extends StatelessWidget {
                           Text(
                             'Current \nProductivity',
                             style:
-                                TextStyle(fontSize: 16, color: Colors.black45),
+                                TextStyle(fontSize: 16, color: Theme.of(context).dividerColor),
                             textAlign: TextAlign.center,
                           ),
                         ],
