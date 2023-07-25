@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taskzoo/widgets/tasks/task.dart';
+import 'package:dimensions_theme/dimensions_theme.dart';
 
 const double appBarSize = 40.0;
 
@@ -59,14 +60,14 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   isSelected: selectedIndex == 0,
                   onTap: () => selectButton(0),
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: Dimensions.of(context).insets.medium),
                 CircleButton(
                   key: ValueKey('W-${selectedIndex == 1}'),
                   label: 'W',
                   isSelected: selectedIndex == 1,
                   onTap: () => selectButton(1),
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: Dimensions.of(context).insets.medium),
                 CircleButton(
                   key: ValueKey('M-${selectedIndex == 2}'),
                   label: 'M',
@@ -111,9 +112,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
     showModalBottomSheet(
       context: context,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
-          top: Radius.circular(20.0),
+          top: Radius.circular(Dimensions.of(context).radii.larger),
         ),
       ),
       builder: (BuildContext context) {
@@ -123,15 +124,16 @@ class _CustomAppBarState extends State<CustomAppBar> {
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20.0),
-                  topRight: Radius.circular(20.0),
+                  topLeft: Radius.circular(Dimensions.of(context).radii.larger),
+                  topRight: Radius.circular(Dimensions.of(context).radii.larger),
                 ),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.all(16.0),
+                  Padding(
+                    padding:
+                        EdgeInsets.all(Dimensions.of(context).insets.medium),
                     child: Text(
                       'Tags',
                       style: TextStyle(
@@ -183,8 +185,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       ),
                     ),
                   if (!hasTasks)
-                    const Padding(
-                      padding: EdgeInsets.all(16.0),
+                    Padding(
+                      padding:
+                          EdgeInsets.all(Dimensions.of(context).insets.medium),
                       child: Text(
                         'Add Tasks To Filter By Tags',
                         style: TextStyle(
@@ -194,7 +197,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       ),
                     ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 32.0),
+                    padding: EdgeInsets.fromLTRB(
+                        Dimensions.of(context).insets.medium,
+                        Dimensions.of(context).insets.smaller,
+                        Dimensions.of(context).insets.medium,
+                        Dimensions.of(context).insets.larger),
                     child: ElevatedButton(
                       onPressed: hasTasks
                           ? () {
@@ -207,10 +214,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         backgroundColor: Theme.of(context).indicatorColor,
                         foregroundColor: Theme.of(context).cardColor,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(Dimensions.of(context).radii.larger),
                         ),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 12.0, horizontal: 32.0),
+                        padding: EdgeInsets.symmetric(
+                            vertical: Dimensions.of(context).insets.medium,
+                            horizontal: Dimensions.of(context).insets.larger),
                       ),
                     ),
                   ),

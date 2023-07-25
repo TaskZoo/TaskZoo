@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:dimensions_theme/dimensions_theme.dart';
 
 class HomeStatsCard extends StatelessWidget {
   final Stream<int> totalCollectedPiecesStream;
@@ -43,14 +44,13 @@ class HomeStatsCard extends StatelessWidget {
       valueListenable: selectedSchedule,
       builder: (context, value, child) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: Dimensions.of(context).insets.medium),
           child: Container(
             decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
-              borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(Dimensions.of(context).radii.medium),
             ),
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: EdgeInsets.symmetric(vertical: Dimensions.of(context).insets.medium),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
