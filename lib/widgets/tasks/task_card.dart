@@ -86,7 +86,6 @@ class _TaskCardState extends State<TaskCard> {
         onLongPress: !widget.task.isCompleted && !_isTapped
             ? () {
                 setState(() {
-                  print("Pressed and Held");
                   updatePiecesInformation();
                   widget.task.isCompleted = true;
                   _streakAndStatsHandler(schedule);
@@ -97,7 +96,7 @@ class _TaskCardState extends State<TaskCard> {
           padding: const EdgeInsets.all(15.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
-            color: Theme.of(context).unselectedWidgetColor,
+            color: Theme.of(context).cardColor,
           ),
           child: Opacity(
             opacity: widget.task.isMeantForToday ? 1 : 0.5,
@@ -115,7 +114,7 @@ class _TaskCardState extends State<TaskCard> {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 10.0),
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
@@ -128,6 +127,7 @@ class _TaskCardState extends State<TaskCard> {
                                     fontSize: 20.0,
                                   ),
                                 ),
+                                SizedBox(height: 8,),
                                 Text(
                                   widget.task.tag,
                                   style: TextStyle(

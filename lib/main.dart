@@ -14,8 +14,6 @@ import 'package:taskzoo/widgets/isar_service.dart';
 import 'package:taskzoo/widgets/preference_service.dart';
 
 const maxCharLimit = 20;
-const selectedColor = Colors.black;
-const lineColor = const Color(0xff8c9292);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

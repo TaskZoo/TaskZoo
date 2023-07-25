@@ -27,7 +27,7 @@ class HomeStatsCard extends StatelessWidget {
           icon,
           SizedBox(width: 5.0),
           if (snapshot.hasData)
-            Text(snapshot.data!.toString(), style: TextStyle(fontSize: 16),)
+            Text(snapshot.data!.toString(), style: TextStyle(fontSize: 16, color: Theme.of(context).indicatorColor),)
           else
             CircularProgressIndicator(),
         ],
