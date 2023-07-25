@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage>
           ValueListenableBuilder<String>(
             valueListenable: selectedSchedule,
             builder: (context, value, child) {
-              return RearTaskCard(
+              return HomeStatsCard(
                 icons: [
                   StreamBuilder<int>(
                     stream: widget.preferenceService.totalCollectedPiecesStream,
@@ -77,8 +77,8 @@ class _HomePageState extends State<HomePage>
                       if (snapshot.hasData) {
                         int totalCollectedPieces = snapshot.data!;
                         return RearTaskCardIcon(
-                          icon: const Icon(FontAwesomeIcons.puzzlePiece,
-                              color: Colors.grey),
+                          icon: Icon(FontAwesomeIcons.puzzlePiece,
+                              color: Theme.of(context).indicatorColor),
                           text: totalCollectedPieces.toString(),
                         );
                       } else {

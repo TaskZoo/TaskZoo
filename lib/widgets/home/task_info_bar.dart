@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:taskzoo/widgets/tasks/rear_task_card_item.dart';
 
-class RearTaskCard extends StatelessWidget {
+class HomeStatsCard extends StatelessWidget {
   final List<StreamBuilder<int>> icons; // Change the type to StreamBuilder<int>
 
-  const RearTaskCard({Key? key, required this.icons}) : super(key: key);
+  const HomeStatsCard({Key? key, required this.icons}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +11,7 @@ class RearTaskCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: 2.0),
+        color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(12.0),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
