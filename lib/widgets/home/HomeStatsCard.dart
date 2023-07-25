@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeStatsCard extends StatelessWidget {
   final Stream<int> totalCollectedPiecesStream;
@@ -16,6 +17,26 @@ class HomeStatsCard extends StatelessWidget {
     required this.selectedTags,
   }) : super(key: key);
 
+  Widget _buildStreamWidget(Stream<int> stream, Icon icon) {
+  return StreamBuilder<int>(
+    stream: stream,
+    builder: (context, snapshot) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          icon,
+          SizedBox(width: 5.0),
+          if (snapshot.hasData)
+            Text(snapshot.data!.toString(), style: TextStyle(fontSize: 16),)
+          else
+            CircularProgressIndicator(),
+        ],
+      );
+    },
+  );
+}
+
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<String>(
@@ -26,46 +47,16 @@ class HomeStatsCard extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
-              borderRadius: BorderRadius.circular(12.0),
+              borderRadius: BorderRadius.circular(15.0),
             ),
             padding:
                 const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                StreamBuilder<int>(
-                  stream: totalCollectedPiecesStream,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      int totalCollectedPieces = snapshot.data!;
-                      return Text(totalCollectedPieces.toString());
-                    } else {
-                      return CircularProgressIndicator();
-                    }
-                  },
-                ),
-                StreamBuilder<int>(
-                  stream: countTasks(value, selectedTags),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      int totalTasks = snapshot.data!;
-                      return Text(totalTasks.toString());
-                    } else {
-                      return CircularProgressIndicator(); // or any other placeholder widget
-                    }
-                  },
-                ),
-                StreamBuilder<int>(
-                  stream: countCompletedTasks(value, selectedTags),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      int completed = snapshot.data!;
-                      return Text(completed.toString());
-                    } else {
-                      return CircularProgressIndicator(); // or any other placeholder widget
-                    }
-                  },
-                ),
+                _buildStreamWidget(totalCollectedPiecesStream, Icon(FontAwesomeIcons.puzzlePiece)),
+                _buildStreamWidget(countTasks(value, selectedTags), Icon(FontAwesomeIcons.listCheck)),
+                _buildStreamWidget(countCompletedTasks(value, selectedTags), Icon(FontAwesomeIcons.check)),
               ],
             ),
           ),
