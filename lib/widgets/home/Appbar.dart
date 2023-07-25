@@ -88,7 +88,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   width: 1,
                   height: appBarSize,
                   color: Theme.of(context).indicatorColor,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
+                  margin: EdgeInsets.symmetric(horizontal: Dimensions.of(context).insets.smaller),
                 ),
                 IconButton(
                     iconSize: appBarSize / 1.5,
@@ -267,7 +267,7 @@ class CircleButton extends StatelessWidget {
             color: isSelected
                 ? Theme.of(context).indicatorColor
                 : Theme.of(context).cardColor,
-            width: 2,
+            width: Dimensions.of(context).borderWidths.medium,
           ),
           color: Theme.of(context).cardColor,
         ),
