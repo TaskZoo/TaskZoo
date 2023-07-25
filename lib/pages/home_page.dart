@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taskzoo/widgets/home/Appbar.dart';
 import 'package:taskzoo/widgets/preference_service.dart';
-import 'package:taskzoo/widgets/home/task_info_bar.dart';
+import 'package:taskzoo/widgets/home/HomeStatsCard.dart';
 import 'package:taskzoo/widgets/tasks/add_task.dart';
 import 'package:taskzoo/widgets/tasks/rear_task_card_item.dart';
 import 'package:taskzoo/widgets/tasks/task.dart';
@@ -66,61 +66,13 @@ class _HomePageState extends State<HomePage>
       ),
       body: Column(
         children: [
-          ValueListenableBuilder<String>(
-            valueListenable: selectedSchedule,
-            builder: (context, value, child) {
-              return HomeStatsCard(
-                icons: [
-                  StreamBuilder<int>(
-                    stream: widget.preferenceService.totalCollectedPiecesStream,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        int totalCollectedPieces = snapshot.data!;
-                        return RearTaskCardIcon(
-                          icon: Icon(FontAwesomeIcons.puzzlePiece,
-                              color: Theme.of(context).indicatorColor),
-                          text: totalCollectedPieces.toString(),
-                        );
-                      } else {
-                        return CircularProgressIndicator();
-                      }
-                    },
-                  ),
-                  StreamBuilder<int>(
-                    stream: widget.service.countTasks(value, selectedTags),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        int totalTasks = snapshot.data!;
-                        return RearTaskCardIcon(
-                          icon: const Icon(FontAwesomeIcons.listCheck,
-                              color: Colors.grey),
-                          text: totalTasks.toString(),
-                        );
-                      } else {
-                        return CircularProgressIndicator(); // or any other placeholder widget
-                      }
-                    },
-                  ),
-                  StreamBuilder<int>(
-                    stream:
-                        widget.service.countCompletedTasks(value, selectedTags),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        int completed = snapshot.data!;
-                        return RearTaskCardIcon(
-                          icon: const Icon(FontAwesomeIcons.check,
-                              color: Colors.grey),
-                          text: completed.toString(),
-                        );
-                      } else {
-                        return CircularProgressIndicator(); // or any other placeholder widget
-                      }
-                    },
-                  ),
-                  // Add more StreamBuilder widgets as needed
-                ],
-              );
-            },
+          HomeStatsCard(
+            totalCollectedPiecesStream:
+                widget.preferenceService.totalCollectedPiecesStream,
+            countTasks: widget.service.countTasks,
+            countCompletedTasks: widget.service.countCompletedTasks,
+            selectedSchedule: selectedSchedule,
+            selectedTags: selectedTags,
           ),
           Expanded(
             child: ValueListenableBuilder<String>(
