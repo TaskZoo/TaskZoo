@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
           // the Dimensions extension allows us to use inset/radii/border with like a theme
           // for our use case, we define the medium value as below and use this throughout the app
           Dimensions(
-            insets: InsetDimensions.fromMedium(20),
+            insets: InsetDimensions.fromMedium(15),
             radii: RadiusDimensions.fromMedium(15),
             borderWidths: BorderWidthDimensions.fromMedium(2)
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dimensions_theme/dimensions_theme.dart';
 
 import 'package:taskzoo/widgets/stats/current_productivity_card.dart';
 
@@ -52,18 +53,18 @@ class StatsPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Container(
-          height: 10,
+        SizedBox(
+          height: Dimensions.of(context).insets.medium,
         ),
         Expanded(
           child: CurrentProductivityCard(
             currentProductivity: 0.75,
             circularProgressStroke: 15,
-            outlineStrokeWidth: 2,
+            outlineStrokeWidth: Dimensions.of(context).borderWidths.medium,
           ),
         ),
-        Container(
-          height: 10,
+        SizedBox(
+          height: Dimensions.of(context).insets.medium,
         ),
         Expanded(
           child: DailyPercentCompletedCard(
@@ -71,16 +72,16 @@ class StatsPage extends StatelessWidget {
             barWidth: 15,
           ),
         ),
-        Container(
-          height: 10,
+        SizedBox(
+          height: Dimensions.of(context).insets.medium,
         ),
         Expanded(
           child: MonthTotalTasksCompletedCard(
             data: monthTotalCompletedTestData,
           ),
         ),
-        Container(
-          height: 10,
+        SizedBox(
+          height: Dimensions.of(context).insets.medium,
         ),
       ]),
   ),

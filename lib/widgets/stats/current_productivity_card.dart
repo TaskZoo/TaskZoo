@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:curved_progress_bar/curved_progress_bar.dart';
+import 'package:dimensions_theme/dimensions_theme.dart';
 
 class Circle extends CustomPainter {
   final double outlineStrokeWidth;
@@ -36,7 +37,7 @@ class CurrentProductivityCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+      padding: EdgeInsets.fromLTRB(Dimensions.of(context).insets.medium, 0, Dimensions.of(context).insets.medium, 0),
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           double circularProgressDiameter = constraints.maxHeight -
@@ -44,9 +45,8 @@ class CurrentProductivityCard extends StatelessWidget {
 
           return Container(
             width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(15.0),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(Dimensions.of(context).radii.medium),
               color: Theme.of(context).cardColor,
             ),
             child: Column(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dimensions_theme/dimensions_theme.dart';
 
 class DailyPercentCompletedCard extends StatelessWidget {
   final Map<String, double> data;
@@ -12,12 +13,12 @@ class DailyPercentCompletedCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+      padding: EdgeInsets.fromLTRB(Dimensions.of(context).insets.medium, 0, Dimensions.of(context).insets.medium, 0),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(Dimensions.of(context).radii.medium),
           color: Theme.of(context).cardColor,
         ),
         child: Column(
@@ -61,7 +62,6 @@ class BarChartPainter extends CustomPainter {
   final double availableWidth; // Total available width
   final double barHeight;
   final double cornerRadius;
-  final double strokeWidth;
 
   BarChartPainter({
     required this.context,
@@ -70,7 +70,6 @@ class BarChartPainter extends CustomPainter {
     required this.barHeight,
     required this.availableWidth,
     this.cornerRadius = 8.0,
-    this.strokeWidth = 2.0,
   });
 
   @override
@@ -110,7 +109,7 @@ class BarChartPainter extends CustomPainter {
       var backgroundStrokePaint = Paint()
         ..color = Theme.of(context).dividerColor
         ..style = PaintingStyle.stroke
-        ..strokeWidth = strokeWidth;
+        ..strokeWidth = Dimensions.of(context).borderWidths.medium;
       canvas.drawRRect(backgroundRect, backgroundStrokePaint);
 
       // Draw bar

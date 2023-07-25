@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:dimensions_theme/dimensions_theme.dart';
 
 class MonthTotalTasksCompletedCard extends StatelessWidget {
   final List<int> data;
@@ -21,15 +22,15 @@ class MonthTotalTasksCompletedCard extends StatelessWidget {
         data.reduce((curr, next) => curr > next ? curr : next).toDouble() + 1;
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+      padding: EdgeInsets.fromLTRB(Dimensions.of(context).insets.medium, 0, Dimensions.of(context).insets.medium, 0),
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(Dimensions.of(context).radii.medium),
           color: Theme.of(context).cardColor,
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(Dimensions.of(context).radii.medium),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
