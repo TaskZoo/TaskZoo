@@ -120,8 +120,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20.0),
                   topRight: Radius.circular(20.0),
@@ -157,6 +157,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                             ),
                             trailing: Checkbox(
                               value: isSelected,
+                              activeColor: Theme.of(context).indicatorColor,
+                              checkColor: Theme.of(context).cardColor,
                               onChanged: (bool? value) {
                                 setState(() {
                                   if (value == true) {
@@ -202,8 +204,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           : null,
                       child: const Text('Done'),
                       style: ElevatedButton.styleFrom(
-                        primary: Theme.of(context).primaryColor,
-                        onPrimary: Colors.white,
+                        backgroundColor: Theme.of(context).indicatorColor,
+                        foregroundColor: Theme.of(context).cardColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25.0),
                         ),
@@ -254,16 +256,18 @@ class CircleButton extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(
-            color: Theme.of(context).dialogBackgroundColor,
-            width: 1,
+            color: isSelected
+                ? Theme.of(context).indicatorColor
+                : Theme.of(context).cardColor,
+            width: 2,
           ),
-          color: isSelected ? Colors.black : Colors.white,
+          color: Theme.of(context).cardColor,
         ),
         child: Center(
           child: Text(
             label,
             style: TextStyle(
-              color: isSelected ? Colors.white : Colors.black,
+              color: Theme.of(context).indicatorColor,
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
