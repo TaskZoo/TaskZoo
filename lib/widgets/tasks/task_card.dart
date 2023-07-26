@@ -90,7 +90,7 @@ class _TaskCardState extends State<TaskCard> {
     );
   }
 
-  Widget _getFrontBottomInfo(String schedule, String monthlyOrWeekly) {
+  Widget _getFrontBottomInfo(String schedule) {
     // if the task is not meant for today we can tell user to chill
     if (!widget.task.isMeantForToday) {
       return const Center(
@@ -113,27 +113,59 @@ class _TaskCardState extends State<TaskCard> {
     return Padding(
         padding: EdgeInsets.symmetric(
             horizontal: Dimensions.of(context).insets.medium),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                const Icon(FontAwesomeIcons.clock),
-                const SizedBox(width: 8.0),
+            const Icon(FontAwesomeIcons.clock),
+            SizedBox(width: Dimensions.of(context).insets.smaller),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Text(_getTimeUntilNextCompletionDate()),
+                if (_setCompletionStatus(schedule) > 0)
+                  Text(
+                    '${_setCompletionStatus(schedule)} tasks left',
+                  ),
               ],
             ),
-            if (_setCompletionStatus(schedule) > 0)
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Text(
-                  '${_setCompletionStatus(schedule)} more this $monthlyOrWeekly',
-                ),
-              ),
           ],
         ));
+  }
+
+  Widget _getCardFront(String schedule) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _getFrontTopInfo(),
+        Container(
+          height: 1.0,
+          color: Theme.of(context).dividerColor,
+        ),
+        _getFrontBottomInfo(schedule),
+      ],
+    );
+  }
+
+  Widget _getCardBack() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Icon(
+          Icons.edit,
+        ),
+            SizedBox(width: Dimensions.of(context).insets.medium),
+        Container(
+          width: 1.0,
+          height: 40,
+          color: Theme.of(context).dividerColor,
+        ),
+            SizedBox(width: Dimensions.of(context).insets.medium),
+        const Icon(
+          Icons.delete,
+        ),
+      ],
+    );
   }
 
   @override
@@ -162,7 +194,9 @@ class _TaskCardState extends State<TaskCard> {
             _isTapped = !_isTapped;
           });
         },
-        onLongPress: !widget.task.isCompleted && !_isTapped
+        onLongPress: !widget.task.isCompleted &&
+                !_isTapped &&
+                widget.task.isMeantForToday
             ? () {
                 setState(() {
                   updatePiecesInformation();
@@ -178,18 +212,7 @@ class _TaskCardState extends State<TaskCard> {
                   BorderRadius.circular(Dimensions.of(context).radii.medium),
               color: Theme.of(context).cardColor,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _getFrontTopInfo(),
-                Container(
-                  height: 1.0,
-                  color: Theme.of(context).dividerColor,
-                ),
-                _getFrontBottomInfo(schedule, monthlyOrWeekly),
-              ],
-            )));
+            child: _isTapped ? _getCardBack() : _getCardFront(schedule)));
 
     return GestureDetector(
       onTap: () {
