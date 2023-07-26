@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dimensions_theme/dimensions_theme.dart';
+
 import 'package:taskzoo/widgets/isar_service.dart';
 import 'package:taskzoo/widgets/preference_service.dart';
 import 'package:taskzoo/widgets/tasks/edit_task.dart';
@@ -55,6 +57,75 @@ class _TaskCardState extends State<TaskCard> {
         _getCompletionCount(widget.task.last30DaysDates);
   }
 
+  Widget _getFrontTopInfo() {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: Dimensions.of(context).insets.medium),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.task.title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: widget.task.isMeantForToday
+                  ? Colors.black
+                  : Theme.of(context).dividerColor,
+              fontSize: 20.0,
+            ),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Text(
+            widget.task.tag,
+            style: TextStyle(
+              color: widget.task.isMeantForToday
+                  ? Colors.grey
+                  : Theme.of(context).dividerColor,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _getFrontBottomInfo() {
+    widget.task.isMeantForToday
+                              ? !widget.task.isCompleted
+                                  ? Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            const Icon(FontAwesomeIcons.clock),
+                                            const SizedBox(width: 8.0),
+                                            Text(
+                                                _getTimeUntilNextCompletionDate()),
+                                          ],
+                                        ),
+                                        if (_setCompletionStatus(schedule) > 0)
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 8.0),
+                                            child: Text(
+                                              '${_setCompletionStatus(schedule)} more this $monthlyOrWeekly',
+                                            ),
+                                          ),
+                                      ],
+                                    )
+                                  : const Icon(
+                                      FontAwesomeIcons.check,
+                                      color: Colors.black,
+                                    )
+                              : const Text('Relax, not for today'),
+
+    return CircularProgressIndicator();
+  }
+
   @override
   Widget build(BuildContext context) {
     String schedule = determineFrequency(
@@ -75,9 +146,7 @@ class _TaskCardState extends State<TaskCard> {
     //Handles Weekly/Monthly completions
     _setCompletionStatus(schedule);
 
-    return Padding(
-      padding: const EdgeInsets.all(0.0),
-      child: GestureDetector(
+    return GestureDetector(
         onTap: () {
           setState(() {
             _isTapped = !_isTapped;
@@ -93,238 +162,268 @@ class _TaskCardState extends State<TaskCard> {
               }
             : null,
         child: Container(
-          padding: const EdgeInsets.all(15.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            color: Theme.of(context).cardColor,
-          ),
-          child: Opacity(
-            opacity: widget.task.isMeantForToday ? 1 : 0.5,
-            child: Stack(
+            padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
+            decoration: BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(Dimensions.of(context).radii.medium),
+              color: Theme.of(context).cardColor,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    if (!_isTapped)
-                      Expanded(
-                        flex: 6,
-                        child: Center(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  widget.task.title,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: widget.task.isMeantForToday
-                                        ? Colors.black
-                                        : Theme.of(context).dividerColor,
-                                    fontSize: 20.0,
-                                  ),
+                _getFrontTopInfo(),
+                Container(
+                  height: 1.0,
+                  color: Theme.of(context).dividerColor,
+                ),
+                _getFrontTopInfo(),
+              ],
+            )));
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _isTapped = !_isTapped;
+        });
+      },
+      onLongPress: !widget.task.isCompleted && !_isTapped
+          ? () {
+              setState(() {
+                updatePiecesInformation();
+                widget.task.isCompleted = true;
+                _streakAndStatsHandler(schedule);
+              });
+            }
+          : null,
+      child: Container(
+        padding: const EdgeInsets.all(15.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: Theme.of(context).cardColor,
+        ),
+        child: Opacity(
+          opacity: widget.task.isMeantForToday ? 1 : 0.5,
+          child: Stack(
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  if (!_isTapped)
+                    Expanded(
+                      flex: 6,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                widget.task.title,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: widget.task.isMeantForToday
+                                      ? Colors.black
+                                      : Theme.of(context).dividerColor,
+                                  fontSize: 20.0,
                                 ),
-                                SizedBox(height: 8,),
-                                Text(
-                                  widget.task.tag,
-                                  style: TextStyle(
-                                    color: widget.task.isMeantForToday
-                                        ? Colors.grey
-                                        : Theme.of(context).dividerColor,
-                                  ),
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                widget.task.tag,
+                                style: TextStyle(
+                                  color: widget.task.isMeantForToday
+                                      ? Colors.grey
+                                      : Theme.of(context).dividerColor,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    if (!_isTapped)
-                      Container(
-                        height: 1.0,
-                        color: Theme.of(context).dividerColor,
-                        margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                      ),
-                    Expanded(
-                      flex: 4,
-                      child: Center(
-                        child: _isTapped
-                            ? Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  RearTaskCardIcon(
-                                    icon: const Icon(
-                                      FontAwesomeIcons.fire,
-                                      color: Colors.orange,
-                                    ),
-                                    text: widget.task.streakCount.toString(),
-                                  ),
-                                  const SizedBox(height: 8.0),
-                                  RearTaskCardIcon(
-                                    icon: const Icon(
-                                      FontAwesomeIcons.trophy,
-                                      color: Colors.yellow,
-                                    ),
-                                    text: widget.task.longestStreak.toString(),
-                                  ),
-                                  const SizedBox(height: 8.0),
-                                  RearTaskCardIcon(
-                                    icon: const Icon(
-                                      FontAwesomeIcons.calendar,
-                                      color: Colors.blue,
-                                    ),
-                                    text: widget.task.completionCount30days
-                                        .toString(),
-                                  ),
-                                  const SizedBox(height: 8.0),
-                                  RearTaskCardIcon(
-                                      icon: const Icon(
-                                        FontAwesomeIcons.puzzlePiece,
-                                        color: Colors.purple,
-                                      ),
-                                      text:
-                                          widget.task.piecesObtained.toString())
-                                ],
-                              )
-                            : widget.task.isMeantForToday
-                                ? !widget.task.isCompleted
-                                    ? Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              const Icon(
-                                                  FontAwesomeIcons.clock),
-                                              const SizedBox(width: 8.0),
-                                              Text(
-                                                  _getTimeUntilNextCompletionDate()),
-                                            ],
-                                          ),
-                                          if (_setCompletionStatus(schedule) >
-                                              0)
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 8.0),
-                                              child: Text(
-                                                '${_setCompletionStatus(schedule)} more this $monthlyOrWeekly',
-                                              ),
-                                            ),
-                                        ],
-                                      )
-                                    : const Icon(
-                                        FontAwesomeIcons.check,
-                                        color: Colors.black,
-                                      )
-                                : const Text('Relax, not for today'),
-                      ),
                     ),
-                  ],
-                ),
-                if (_isTapped)
-                  Positioned(
-                    top: 10.0,
-                    right: 10.0,
-                    child: GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet<Map<String, dynamic>>(
-                          context: context,
-                          backgroundColor: Colors.transparent,
-                          builder: (BuildContext context) {
-                            return EditTaskSheet(
-                              title: widget.task.title,
-                              tag: widget.task.tag,
-                              daysOfWeek: widget.task.daysOfWeek,
-                              biDaily: widget.task.biDaily,
-                              weekly: widget.task.weekly,
-                              monthly: widget.task.monthly,
-                              timesPerWeek: widget.task.timesPerWeek,
-                              timesPerMonth: widget.task.timesPerMonth,
-                              onUpdateTask: (editedTaskData) {
-                                setState(() {
-                                  widget.task.title = editedTaskData['title'];
-                                  widget.task.tag = editedTaskData['tag'];
-                                  widget.task.daysOfWeek =
-                                      editedTaskData['daysOfWeek'];
-                                  widget.task.biDaily =
-                                      editedTaskData['biDaily'];
-                                  widget.task.weekly = editedTaskData['weekly'];
-                                  widget.task.monthly =
-                                      editedTaskData['monthly'];
-                                  widget.task.timesPerWeek =
-                                      editedTaskData['timesPerWeek'];
-                                  widget.task.timesPerMonth =
-                                      editedTaskData['timesPerMonth'];
-                                  widget.task.schedule =
-                                      editedTaskData['schedule'];
-                                  isCompletedFalse(schedule);
-                                  updateTaskSchema();
-                                });
-                              },
-                            );
-                          },
-                        );
-                      },
-                      child: const Icon(
-                        Icons.edit,
-                        color: Colors.blue,
-                      ),
+                  if (!_isTapped)
+                    Container(
+                      height: 1.0,
+                      color: Theme.of(context).dividerColor,
+                      margin: const EdgeInsets.symmetric(horizontal: 10.0),
                     ),
-                  ),
-                if (_isTapped)
-                  Positioned(
-                    top: 40.0,
-                    right: 10.0,
-                    child: GestureDetector(
-                      onTap: () {
-                        // Show a dialog to confirm the deletion
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Theme(
-                              data: Theme.of(context).copyWith(
-                                  dialogBackgroundColor: Colors.white),
-                              child: AlertDialog(
-                                title: const Text('Delete Task'),
-                                content: const Text(
-                                    'Are you sure you want to delete this task?'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: const Text('Cancel'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
+                  Expanded(
+                    flex: 4,
+                    child: Center(
+                      child: _isTapped
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                RearTaskCardIcon(
+                                  icon: const Icon(
+                                    FontAwesomeIcons.fire,
+                                    color: Colors.orange,
                                   ),
-                                  TextButton(
-                                    child: const Text('Delete'),
-                                    onPressed: () {
-                                      deleteTask();
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      15), // Change this value to adjust the corner radius
+                                  text: widget.task.streakCount.toString(),
                                 ),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                      child: const Icon(
-                        Icons.delete,
-                        color: Colors
-                            .red, // change the color to red to indicate a delete action
-                      ),
+                                const SizedBox(height: 8.0),
+                                RearTaskCardIcon(
+                                  icon: const Icon(
+                                    FontAwesomeIcons.trophy,
+                                    color: Colors.yellow,
+                                  ),
+                                  text: widget.task.longestStreak.toString(),
+                                ),
+                                const SizedBox(height: 8.0),
+                                RearTaskCardIcon(
+                                  icon: const Icon(
+                                    FontAwesomeIcons.calendar,
+                                    color: Colors.blue,
+                                  ),
+                                  text: widget.task.completionCount30days
+                                      .toString(),
+                                ),
+                                const SizedBox(height: 8.0),
+                                RearTaskCardIcon(
+                                    icon: const Icon(
+                                      FontAwesomeIcons.puzzlePiece,
+                                      color: Colors.purple,
+                                    ),
+                                    text: widget.task.piecesObtained.toString())
+                              ],
+                            )
+                          : widget.task.isMeantForToday
+                              ? !widget.task.isCompleted
+                                  ? Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            const Icon(FontAwesomeIcons.clock),
+                                            const SizedBox(width: 8.0),
+                                            Text(
+                                                _getTimeUntilNextCompletionDate()),
+                                          ],
+                                        ),
+                                        if (_setCompletionStatus(schedule) > 0)
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 8.0),
+                                            child: Text(
+                                              '${_setCompletionStatus(schedule)} more this $monthlyOrWeekly',
+                                            ),
+                                          ),
+                                      ],
+                                    )
+                                  : const Icon(
+                                      FontAwesomeIcons.check,
+                                      color: Colors.black,
+                                    )
+                              : const Text('Relax, not for today'),
                     ),
                   ),
-              ],
-            ),
+                ],
+              ),
+              if (_isTapped)
+                Positioned(
+                  top: 10.0,
+                  right: 10.0,
+                  child: GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet<Map<String, dynamic>>(
+                        context: context,
+                        backgroundColor: Colors.transparent,
+                        builder: (BuildContext context) {
+                          return EditTaskSheet(
+                            title: widget.task.title,
+                            tag: widget.task.tag,
+                            daysOfWeek: widget.task.daysOfWeek,
+                            biDaily: widget.task.biDaily,
+                            weekly: widget.task.weekly,
+                            monthly: widget.task.monthly,
+                            timesPerWeek: widget.task.timesPerWeek,
+                            timesPerMonth: widget.task.timesPerMonth,
+                            onUpdateTask: (editedTaskData) {
+                              setState(() {
+                                widget.task.title = editedTaskData['title'];
+                                widget.task.tag = editedTaskData['tag'];
+                                widget.task.daysOfWeek =
+                                    editedTaskData['daysOfWeek'];
+                                widget.task.biDaily = editedTaskData['biDaily'];
+                                widget.task.weekly = editedTaskData['weekly'];
+                                widget.task.monthly = editedTaskData['monthly'];
+                                widget.task.timesPerWeek =
+                                    editedTaskData['timesPerWeek'];
+                                widget.task.timesPerMonth =
+                                    editedTaskData['timesPerMonth'];
+                                widget.task.schedule =
+                                    editedTaskData['schedule'];
+                                isCompletedFalse(schedule);
+                                updateTaskSchema();
+                              });
+                            },
+                          );
+                        },
+                      );
+                    },
+                    child: const Icon(
+                      Icons.edit,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              if (_isTapped)
+                Positioned(
+                  top: 40.0,
+                  right: 10.0,
+                  child: GestureDetector(
+                    onTap: () {
+                      // Show a dialog to confirm the deletion
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Theme(
+                            data: Theme.of(context)
+                                .copyWith(dialogBackgroundColor: Colors.white),
+                            child: AlertDialog(
+                              title: const Text('Delete Task'),
+                              content: const Text(
+                                  'Are you sure you want to delete this task?'),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text('Cancel'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                TextButton(
+                                  child: const Text('Delete'),
+                                  onPressed: () {
+                                    deleteTask();
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    15), // Change this value to adjust the corner radius
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: const Icon(
+                      Icons.delete,
+                      color: Colors
+                          .red, // change the color to red to indicate a delete action
+                    ),
+                  ),
+                ),
+            ],
           ),
         ),
       ),
