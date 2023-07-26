@@ -147,22 +147,96 @@ class _TaskCardState extends State<TaskCard> {
     );
   }
 
-  Widget _getCardBack() {
+  Widget _getCardBack(schedule) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Icon(
-          Icons.edit,
+        GestureDetector(
+          onTap: () {
+            showModalBottomSheet<Map<String, dynamic>>(
+              context: context,
+              backgroundColor: Colors.transparent,
+              builder: (BuildContext context) {
+                return EditTaskSheet(
+                  title: widget.task.title,
+                  tag: widget.task.tag,
+                  daysOfWeek: widget.task.daysOfWeek,
+                  biDaily: widget.task.biDaily,
+                  weekly: widget.task.weekly,
+                  monthly: widget.task.monthly,
+                  timesPerWeek: widget.task.timesPerWeek,
+                  timesPerMonth: widget.task.timesPerMonth,
+                  onUpdateTask: (editedTaskData) {
+                    setState(() {
+                      widget.task.title = editedTaskData['title'];
+                      widget.task.tag = editedTaskData['tag'];
+                      widget.task.daysOfWeek = editedTaskData['daysOfWeek'];
+                      widget.task.biDaily = editedTaskData['biDaily'];
+                      widget.task.weekly = editedTaskData['weekly'];
+                      widget.task.monthly = editedTaskData['monthly'];
+                      widget.task.timesPerWeek = editedTaskData['timesPerWeek'];
+                      widget.task.timesPerMonth =
+                          editedTaskData['timesPerMonth'];
+                      widget.task.schedule = editedTaskData['schedule'];
+                      isCompletedFalse(schedule);
+                      updateTaskSchema();
+                    });
+                  },
+                );
+              },
+            );
+          },
+          child: const Icon(
+            Icons.edit,
+          ),
         ),
-            SizedBox(width: Dimensions.of(context).insets.medium),
+        SizedBox(width: Dimensions.of(context).insets.medium),
         Container(
           width: 1.0,
           height: 40,
           color: Theme.of(context).dividerColor,
         ),
-            SizedBox(width: Dimensions.of(context).insets.medium),
-        const Icon(
-          Icons.delete,
+        SizedBox(width: Dimensions.of(context).insets.medium),
+        GestureDetector(
+          onTap: () {
+            // Show a dialog to confirm the deletion
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return Theme(
+                  data: Theme.of(context)
+                      .copyWith(dialogBackgroundColor: Colors.white),
+                  child: AlertDialog(
+                    title: const Text('Delete Task'),
+                    content: const Text(
+                        'Are you sure you want to delete this task?'),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('Cancel'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: const Text('Delete'),
+                        onPressed: () {
+                          deleteTask();
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          Dimensions.of(context).radii.medium),
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+          child: const Icon(
+            Icons.delete,
+          ),
         ),
       ],
     );
@@ -212,7 +286,8 @@ class _TaskCardState extends State<TaskCard> {
                   BorderRadius.circular(Dimensions.of(context).radii.medium),
               color: Theme.of(context).cardColor,
             ),
-            child: _isTapped ? _getCardBack() : _getCardFront(schedule)));
+            child:
+                _isTapped ? _getCardBack(schedule) : _getCardFront(schedule)));
 
     return GestureDetector(
       onTap: () {
