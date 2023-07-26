@@ -90,40 +90,50 @@ class _TaskCardState extends State<TaskCard> {
     );
   }
 
-  Widget _getFrontBottomInfo() {
-    widget.task.isMeantForToday
-                              ? !widget.task.isCompleted
-                                  ? Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            const Icon(FontAwesomeIcons.clock),
-                                            const SizedBox(width: 8.0),
-                                            Text(
-                                                _getTimeUntilNextCompletionDate()),
-                                          ],
-                                        ),
-                                        if (_setCompletionStatus(schedule) > 0)
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 8.0),
-                                            child: Text(
-                                              '${_setCompletionStatus(schedule)} more this $monthlyOrWeekly',
-                                            ),
-                                          ),
-                                      ],
-                                    )
-                                  : const Icon(
-                                      FontAwesomeIcons.check,
-                                      color: Colors.black,
-                                    )
-                              : const Text('Relax, not for today'),
+  Widget _getFrontBottomInfo(String schedule, String monthlyOrWeekly) {
+    // if the task is not meant for today we can tell user to chill
+    if (!widget.task.isMeantForToday) {
+      return const Center(
+        child: Text('Relax, not today!'),
+      );
+    }
 
-    return CircularProgressIndicator();
+    // if the task is completed the user gets a checkmark
+    if (widget.task.isCompleted) {
+      return const Center(
+        child: Icon(
+          FontAwesomeIcons.check,
+          color: Colors.black,
+        ),
+      );
+    }
+
+    // if neither of the two above apply, we need to let the user know how much time/tasks they have left
+
+    return Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: Dimensions.of(context).insets.medium),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                const Icon(FontAwesomeIcons.clock),
+                const SizedBox(width: 8.0),
+                Text(_getTimeUntilNextCompletionDate()),
+              ],
+            ),
+            if (_setCompletionStatus(schedule) > 0)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  '${_setCompletionStatus(schedule)} more this $monthlyOrWeekly',
+                ),
+              ),
+          ],
+        ));
   }
 
   @override
@@ -177,7 +187,7 @@ class _TaskCardState extends State<TaskCard> {
                   height: 1.0,
                   color: Theme.of(context).dividerColor,
                 ),
-                _getFrontTopInfo(),
+                _getFrontBottomInfo(schedule, monthlyOrWeekly),
               ],
             )));
 
