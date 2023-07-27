@@ -62,11 +62,11 @@ class _SettingsPageState extends State<SettingsPage> {
               horizontal: Dimensions.of(context).insets.medium),
           child: Column(children: [
             SettingsOptionWithToggle(
-              leftIcon: Icons.notifications,
-              optionText: 'Notifications',
+              leftIcon: Icons.tonality,
+              optionText: 'Theme',
               initialValue: true,
               onToggleChanged: (bool value) {
-                print('Notifications toggled: $value');
+                print('Theme toggled: $value');
               },
             ),
             Container(
@@ -74,11 +74,11 @@ class _SettingsPageState extends State<SettingsPage> {
               color: Theme.of(context).dividerColor,
             ),
             SettingsOptionWithToggle(
-              leftIcon: Icons.notifications,
-              optionText: 'Notifications',
+              leftIcon: Icons.volume_up,
+              optionText: 'Sounds',
               initialValue: true,
               onToggleChanged: (bool value) {
-                print('Notifications toggled: $value');
+                print('Sounds toggled: $value');
               },
             ),
             Container(
@@ -86,11 +86,11 @@ class _SettingsPageState extends State<SettingsPage> {
               color: Theme.of(context).dividerColor,
             ),
             SettingsOptionWithToggle(
-              leftIcon: Icons.notifications,
-              optionText: 'Notifications',
+              leftIcon: Icons.edgesensor_low,
+              optionText: 'Haptics',
               initialValue: true,
               onToggleChanged: (bool value) {
-                print('Notifications toggled: $value');
+                print('Haptics toggled: $value');
               },
             ),
           ]),
