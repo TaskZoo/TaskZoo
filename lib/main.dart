@@ -14,8 +14,6 @@ import 'package:taskzoo/misc/zoo_notifier.dart';
 import 'package:taskzoo/widgets/isar_service.dart';
 import 'package:taskzoo/widgets/preference_service.dart';
 
-const maxCharLimit = 20;
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

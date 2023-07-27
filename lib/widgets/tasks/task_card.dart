@@ -58,8 +58,8 @@ class _TaskCardState extends State<TaskCard> {
 
   Widget _getFrontTopInfo() {
     return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: Dimensions.of(context).insets.medium),
+      padding:
+          EdgeInsets.symmetric(horizontal: Dimensions.of(context).insets.small),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -103,7 +103,7 @@ class _TaskCardState extends State<TaskCard> {
 
     return Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: Dimensions.of(context).insets.medium),
+            horizontal: Dimensions.of(context).insets.small),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
