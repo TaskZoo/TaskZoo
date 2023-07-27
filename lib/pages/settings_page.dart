@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -98,6 +99,9 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Widget _buttonSettingsCard() {
+    // var for requesting an in app review
+    final InAppReview _inAppReview = InAppReview.instance;
+
     return Container(
         decoration: BoxDecoration(
           borderRadius:
@@ -109,7 +113,7 @@ class _SettingsPageState extends State<SettingsPage> {
               horizontal: Dimensions.of(context).insets.medium),
           child: Column(children: [
             SettingsOptionWithIcon(
-              leftIcon: Icons.public,
+              leftIcon: Icons.send,
               optionText: 'Share',
               rightActionIcon: Icons.chevron_right,
               onActionTap: () => print('Share pressed!'),
@@ -122,7 +126,7 @@ class _SettingsPageState extends State<SettingsPage> {
               leftIcon: Icons.star_rate,
               optionText: 'Leave a Review',
               rightActionIcon: Icons.chevron_right,
-              onActionTap: () => print('Review icon pressed!'),
+              onActionTap: () => _inAppReview.requestReview(),
             ),
             Container(
               height: 1.0,
@@ -257,7 +261,9 @@ class _SettingsOptionWithToggleState extends State<SettingsOptionWithToggle> {
             ],
           ),
           Container(
-            constraints: BoxConstraints(maxWidth: Theme.of(context).iconTheme.size!*2, maxHeight: Theme.of(context).iconTheme.size!),
+            constraints: BoxConstraints(
+                maxWidth: Theme.of(context).iconTheme.size! * 2,
+                maxHeight: Theme.of(context).iconTheme.size!),
             child: Switch(
               activeColor: Colors.black,
               value: _currentValue,
