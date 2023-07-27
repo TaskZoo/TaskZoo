@@ -9,35 +9,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  Widget _settingsOptionRow({
-    required IconData leftIcon,
-    required String optionText,
-    required IconData rightActionIcon,
-    required void Function() onActionTap,
-  }) {
-    return Padding(
-      padding: EdgeInsets.all(Dimensions.of(context).insets.small),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Icon(leftIcon),
-              SizedBox(
-                width: Dimensions.of(context).insets.medium,
-              ),
-              Text(optionText, style: TextStyle(fontSize: 16))
-            ],
-          ),
-          GestureDetector(
-            child: Icon(rightActionIcon),
-            onTap: onActionTap,
-          )
-        ],
-      ),
-    );
-  }
-
   Widget _modalSettingsCard() {
     return Container(
         decoration: BoxDecoration(
@@ -49,7 +20,7 @@ class _SettingsPageState extends State<SettingsPage> {
           padding: EdgeInsets.symmetric(
               horizontal: Dimensions.of(context).insets.medium),
           child: Column(children: [
-            _settingsOptionRow(
+            SettingsOptionWithIcon(
               leftIcon: Icons.public,
               optionText: 'App Icon',
               rightActionIcon: Icons.expand_less,
@@ -59,7 +30,7 @@ class _SettingsPageState extends State<SettingsPage> {
               height: 1.0,
               color: Theme.of(context).dividerColor,
             ),
-            _settingsOptionRow(
+            SettingsOptionWithIcon(
               leftIcon: Icons.notifications,
               optionText: 'Notifications',
               rightActionIcon: Icons.expand_less,
@@ -69,7 +40,7 @@ class _SettingsPageState extends State<SettingsPage> {
               height: 1.0,
               color: Theme.of(context).dividerColor,
             ),
-            _settingsOptionRow(
+            SettingsOptionWithIcon(
               leftIcon: Icons.help_outline,
               optionText: 'Help',
               rightActionIcon: Icons.expand_less,
@@ -90,32 +61,38 @@ class _SettingsPageState extends State<SettingsPage> {
           padding: EdgeInsets.symmetric(
               horizontal: Dimensions.of(context).insets.medium),
           child: Column(children: [
-            _settingsOptionRow(
-              leftIcon: Icons.public,
-              optionText: 'App Icon',
-              rightActionIcon: Icons.expand_less,
-              onActionTap: () => print('App icon pressed!'),
-            ),
-            Container(
-              height: 1.0,
-              color: Theme.of(context).dividerColor,
-            ),
-            _settingsOptionRow(
+            SettingsOptionWithToggle(
               leftIcon: Icons.notifications,
               optionText: 'Notifications',
-              rightActionIcon: Icons.expand_less,
-              onActionTap: () => print('Notifications icon pressed!'),
+              initialValue: true,
+              onToggleChanged: (bool value) {
+                print('Notifications toggled: $value');
+              },
             ),
             Container(
               height: 1.0,
               color: Theme.of(context).dividerColor,
             ),
-            _settingsOptionRow(
-              leftIcon: Icons.help_outline,
-              optionText: 'Help',
-              rightActionIcon: Icons.expand_less,
-              onActionTap: () => print('Help icon pressed!'),
-            )
+            SettingsOptionWithToggle(
+              leftIcon: Icons.notifications,
+              optionText: 'Notifications',
+              initialValue: true,
+              onToggleChanged: (bool value) {
+                print('Notifications toggled: $value');
+              },
+            ),
+            Container(
+              height: 1.0,
+              color: Theme.of(context).dividerColor,
+            ),
+            SettingsOptionWithToggle(
+              leftIcon: Icons.notifications,
+              optionText: 'Notifications',
+              initialValue: true,
+              onToggleChanged: (bool value) {
+                print('Notifications toggled: $value');
+              },
+            ),
           ]),
         ));
   }
@@ -142,6 +119,112 @@ class _SettingsPageState extends State<SettingsPage> {
             Navigator.pop(context);
           },
         ),
+      ),
+    );
+  }
+}
+
+class SettingsOptionWithIcon extends StatefulWidget {
+  final IconData leftIcon;
+  final String optionText;
+  final IconData rightActionIcon;
+  final void Function() onActionTap;
+
+  SettingsOptionWithIcon({
+    required this.leftIcon,
+    required this.optionText,
+    required this.rightActionIcon,
+    required this.onActionTap,
+  });
+
+  @override
+  _SettingsOptionWithIconState createState() => _SettingsOptionWithIconState();
+}
+
+class _SettingsOptionWithIconState extends State<SettingsOptionWithIcon> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(Dimensions.of(context).insets.small),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Icon(widget.leftIcon),
+              SizedBox(
+                width: Dimensions.of(context).insets.medium,
+              ),
+              Text(widget.optionText, style: TextStyle(fontSize: 16))
+            ],
+          ),
+          GestureDetector(
+            child: Icon(widget.rightActionIcon),
+            onTap: widget.onActionTap,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class SettingsOptionWithToggle extends StatefulWidget {
+  final IconData leftIcon;
+  final String optionText;
+  final bool initialValue;
+  final ValueChanged<bool> onToggleChanged;
+
+  SettingsOptionWithToggle({
+    required this.leftIcon,
+    required this.optionText,
+    required this.initialValue,
+    required this.onToggleChanged,
+  });
+
+  @override
+  _SettingsOptionWithToggleState createState() =>
+      _SettingsOptionWithToggleState();
+}
+
+class _SettingsOptionWithToggleState extends State<SettingsOptionWithToggle> {
+  late bool _currentValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentValue = widget.initialValue;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(Dimensions.of(context).insets.small),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Icon(widget.leftIcon),
+              SizedBox(
+                width: Dimensions.of(context).insets.medium,
+              ),
+              Text(widget.optionText, style: TextStyle(fontSize: 16))
+            ],
+          ),
+          Container(
+            constraints: BoxConstraints(maxWidth: Theme.of(context).iconTheme.size!*2, maxHeight: Theme.of(context).iconTheme.size!),
+            child: Switch(
+              activeColor: Colors.black,
+              value: _currentValue,
+              onChanged: (bool value) {
+                setState(() {
+                  _currentValue = value;
+                });
+                widget.onToggleChanged(value);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
