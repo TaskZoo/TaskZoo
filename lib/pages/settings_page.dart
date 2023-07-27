@@ -97,6 +97,47 @@ class _SettingsPageState extends State<SettingsPage> {
         ));
   }
 
+  Widget _buttonSettingsCard() {
+    return Container(
+        decoration: BoxDecoration(
+          borderRadius:
+              BorderRadius.circular(Dimensions.of(context).radii.medium),
+          color: Theme.of(context).cardColor,
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: Dimensions.of(context).insets.medium),
+          child: Column(children: [
+            SettingsOptionWithIcon(
+              leftIcon: Icons.public,
+              optionText: 'Share',
+              rightActionIcon: Icons.chevron_right,
+              onActionTap: () => print('Share pressed!'),
+            ),
+            Container(
+              height: 1.0,
+              color: Theme.of(context).dividerColor,
+            ),
+            SettingsOptionWithIcon(
+              leftIcon: Icons.star_rate,
+              optionText: 'Leave a Review',
+              rightActionIcon: Icons.chevron_right,
+              onActionTap: () => print('Review icon pressed!'),
+            ),
+            Container(
+              height: 1.0,
+              color: Theme.of(context).dividerColor,
+            ),
+            SettingsOptionWithIcon(
+              leftIcon: Icons.delete,
+              optionText: 'Clean Slate Protocol',
+              rightActionIcon: Icons.chevron_right,
+              onActionTap: () => print('Clean icon pressed!'),
+            )
+          ]),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +148,11 @@ class _SettingsPageState extends State<SettingsPage> {
           SizedBox(
             height: Dimensions.of(context).insets.medium,
           ),
-          _toggleSettingsCard()
+          _toggleSettingsCard(),
+          SizedBox(
+            height: Dimensions.of(context).insets.medium,
+          ),
+          _buttonSettingsCard()
         ]),
       ),
       bottomNavigationBar: BottomAppBar(
