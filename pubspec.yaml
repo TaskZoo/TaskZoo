@@ -46,6 +46,7 @@ dependencies:
   shared_preferences: ^2.2.0
   dimensions_theme: ^0.0.3
   in_app_review: ^2.0.6
+  share_plus: ^7.0.2
 
 dev_dependencies:
   flutter_test:

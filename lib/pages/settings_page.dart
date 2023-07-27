@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -116,7 +117,8 @@ class _SettingsPageState extends State<SettingsPage> {
               leftIcon: Icons.send,
               optionText: 'Share',
               rightActionIcon: Icons.chevron_right,
-              onActionTap: () => print('Share pressed!'),
+              onActionTap: () => Share.share(
+                  'Check out TaskZoo... you can build a zoo of cute animals! https://example.com'),
             ),
             Container(
               height: 1.0,
