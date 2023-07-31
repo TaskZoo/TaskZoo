@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:provider/provider.dart';
 
 import 'package:taskzoo/misc/theme_notifier.dart';
 import 'package:taskzoo/widgets/settings/settings_option_widgets.dart';
@@ -56,6 +57,8 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Widget _toggleSettingsCard() {
+    final themeNotifier = Provider.of<ThemeNotifier>(context, listen: false);
+
     return Container(
         decoration: BoxDecoration(
           borderRadius:
@@ -69,8 +72,11 @@ class _SettingsPageState extends State<SettingsPage> {
             SettingsOptionWithToggle(
               leftIcon: Icons.tonality,
               optionText: 'Theme',
-              initialValue: true,
+              initialValue: themeNotifier.currentTheme ==
+                  ThemeMode
+                      .dark, // Reflect the current theme state on the toggle
               onToggleChanged: (bool value) {
+                themeNotifier.toggleTheme(); // Toggle the theme
                 print('Theme toggled: $value');
               },
             ),
@@ -177,4 +183,3 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 }
-
