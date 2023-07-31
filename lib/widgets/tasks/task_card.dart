@@ -94,7 +94,6 @@ class _TaskCardState extends State<TaskCard> {
       return const Center(
         child: Icon(
           FontAwesomeIcons.check,
-          color: Colors.black,
         ),
       );
     }

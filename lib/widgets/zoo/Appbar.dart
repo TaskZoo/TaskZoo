@@ -41,8 +41,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
               color: Theme.of(context).cardColor,
               border: Border.all(
                 color: zooNotifier.currentBiome == iconIndex
-                    ? Colors.black
-                    : Colors.white,
+                    ? Theme.of(context).indicatorColor
+                    : Theme.of(context).scaffoldBackgroundColor,
                 width: Dimensions.of(context).borderWidths.medium, // adjust width as needed
               ),
             ),

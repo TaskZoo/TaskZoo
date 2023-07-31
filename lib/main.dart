@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
       ),
 
       darkTheme: ThemeData(
-        /* dark theme settings */
+        // dark theme settings
         brightness: Brightness.dark,
 
         // solid black that is background of all pages besides zoo
