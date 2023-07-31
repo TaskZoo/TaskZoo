@@ -34,6 +34,11 @@ class _SettingsPageState extends State<SettingsPage> {
               onActionTap: () {
                 showModalBottomSheet(
                   context: context,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(Dimensions.of(context).radii.largest),
+                    ),
+                  ),
                   isScrollControlled: true,
                   builder: (BuildContext context) =>
                       appIconModalContent(context),

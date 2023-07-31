@@ -114,7 +114,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       context: context,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
-          top: Radius.circular(Dimensions.of(context).radii.larger),
+          top: Radius.circular(Dimensions.of(context).radii.largest),
         ),
       ),
       builder: (BuildContext context) {
@@ -124,8 +124,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(Dimensions.of(context).radii.larger),
-                  topRight: Radius.circular(Dimensions.of(context).radii.larger),
+                  topLeft: Radius.circular(Dimensions.of(context).radii.largest),
+                  topRight: Radius.circular(Dimensions.of(context).radii.largest),
                 ),
               ),
               child: Column(
