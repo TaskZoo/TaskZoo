@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
 
       // getting info for how to do ThemeData at https://stackoverflow.com/questions/60232070/how-to-implement-dark-mode-and-light-mode-in-flutter
       theme: ThemeData(
-        // What brightness we are defining
+        // Light theme settings
         brightness: Brightness.light,
 
         // darker white that is background of all pages besides zoo
@@ -57,6 +57,34 @@ class MyApp extends StatelessWidget {
               borderWidths: BorderWidthDimensions.fromMedium(2)),
         ],
       ),
+
+      darkTheme: ThemeData(
+        /* dark theme settings */
+        brightness: Brightness.dark,
+
+        // solid black that is background of all pages besides zoo
+        scaffoldBackgroundColor: Colors.black,
+        // solid white that is color of any card
+        cardColor: Color.fromARGB(255, 35, 35, 35),
+        // black color for icons
+        indicatorColor: Colors.white,
+        // gray color used throughout the app
+        dividerColor: Color.fromARGB(255, 123, 123, 123),
+
+        // set theme data for icons
+        iconTheme: IconThemeData(color: Colors.white, size: 24),
+
+        extensions: [
+          // the Dimensions extension allows us to use inset/radii/border with like a theme
+          // for our use case, we define the medium value as below and use this throughout the app
+          Dimensions(
+              insets: InsetDimensions.fromMedium(15),
+              radii: RadiusDimensions.fromMedium(15),
+              borderWidths: BorderWidthDimensions.fromMedium(2)),
+        ],
+      ),
+
+      themeMode: ThemeMode.dark,
       home: MyHomePage(title: 'TaskZoo Task Page'),
     );
   }
