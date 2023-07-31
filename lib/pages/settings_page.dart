@@ -5,6 +5,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:provider/provider.dart';
 
 import 'package:taskzoo/misc/theme_notifier.dart';
+import 'package:taskzoo/widgets/settings/app_icon_modal.dart';
 import 'package:taskzoo/widgets/settings/settings_option_widgets.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -30,7 +31,14 @@ class _SettingsPageState extends State<SettingsPage> {
               leftIcon: Icons.public,
               optionText: 'App Icon',
               rightActionIcon: Icons.expand_less,
-              onActionTap: () => print('App icon pressed!'),
+              onActionTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) =>
+                      appIconModalContent(context),
+                );
+              },
             ),
             Container(
               height: 1.0,

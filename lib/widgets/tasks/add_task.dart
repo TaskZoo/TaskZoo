@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:dimensions_theme/dimensions_theme.dart';
+
 import 'package:taskzoo/widgets/tasks/task.dart';
 import 'package:taskzoo/widgets/isar_service.dart';
 
@@ -27,76 +29,81 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25), topRight: Radius.circular(25))),
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  'Add a New Task',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).indicatorColor,
+    return Container(
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(Dimensions.of(context).radii.largest),
+      topRight: Radius.circular(Dimensions.of(context).radii.largest),
+    ),
+    color: Theme.of(context).cardColor, // Set the background color for the container to mimic the Card's default color.
+  ),
+  child: Container(
+    height: MediaQuery.of(context).size.height,
+    width: MediaQuery.of(context).size.width,
+    padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
+    child: SingleChildScrollView(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(
+              'Add a New Task',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).indicatorColor,
+              ),
+            ),
+            SizedBox(height: Dimensions.of(context).insets.medium),
+            _buildSelectedOptionTextBox(),
+            SizedBox(height: Dimensions.of(context).insets.medium),
+            _buildTextField('Task Name', _titleController),
+            SizedBox(height: Dimensions.of(context).insets.medium),
+            _buildTextField('Tag Name', _tagController),
+            SizedBox(height: Dimensions.of(context).insets.medium),
+            ExpansionPanelList(
+              elevation: 1,
+              expandedHeaderPadding: const EdgeInsets.all(0),
+              dividerColor: Colors.transparent,
+              expansionCallback: (int index, bool isExpanded) =>
+                  setState(() => _isExpanded = !isExpanded),
+              children: [
+                ExpansionPanel(
+                  headerBuilder: (BuildContext context, bool isExpanded) {
+                    return const ListTile(
+                      title: Text('Additional Options',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
+                    );
+                  },
+                  body: Column(
+                    children: [
+                      _buildDaySelector(),
+                      Divider(color: Theme.of(context).dividerColor),
+            SizedBox(height: Dimensions.of(context).insets.medium),
+                      _buildBiDailySwitch(),
+                      Divider(color: Theme.of(context).dividerColor),
+                      _buildWeeklySwitch(),
+                      if (_weekly) _buildDaysPerWeekSelector(),
+                      Divider(color: Theme.of(context).dividerColor),
+                      _buildMonthlySwitch(),
+                      if (_monthly) _buildDaysPerMonthSelector()
+                    ],
                   ),
+                  isExpanded: _isExpanded,
                 ),
-                const SizedBox(height: 16),
-                _buildSelectedOptionTextBox(),
-                const SizedBox(height: 16),
-                _buildTextField('Task Name', _titleController),
-                const SizedBox(height: 16),
-                _buildTextField('Tag Name', _tagController),
-                const SizedBox(height: 16),
-                ExpansionPanelList(
-                  elevation: 1,
-                  expandedHeaderPadding: const EdgeInsets.all(0),
-                  dividerColor: Colors.transparent,
-                  expansionCallback: (int index, bool isExpanded) =>
-                      setState(() => _isExpanded = !isExpanded),
-                  children: [
-                    ExpansionPanel(
-                      headerBuilder: (BuildContext context, bool isExpanded) {
-                        return const ListTile(
-                          title: Text('Additional Options',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold)),
-                        );
-                      },
-                      body: Column(
-                        children: [
-                          _buildDaySelector(),
-                          Divider(color: Theme.of(context).dividerColor),
-                          const SizedBox(height: 16),
-                          _buildBiDailySwitch(),
-                          Divider(color: Theme.of(context).dividerColor),
-                          _buildWeeklySwitch(),
-                          if (_weekly) _buildDaysPerWeekSelector(),
-                          Divider(color: Theme.of(context).dividerColor),
-                          _buildMonthlySwitch(),
-                          if (_monthly) _buildDaysPerMonthSelector()
-                        ],
-                      ),
-                      isExpanded: _isExpanded,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                _buildSubmitButton(context),
               ],
             ),
-          ),
+            SizedBox(height: Dimensions.of(context).insets.medium),
+            _buildSubmitButton(context),
+          ],
         ),
       ),
-    );
+    ),
+  ),
+);
+
   }
 
   Widget _buildSelectedOptionTextBox() {
