@@ -11,6 +11,7 @@ import 'package:taskzoo/pages/settings_page.dart';
 import 'package:taskzoo/widgets/home/navbar.dart';
 
 import 'package:taskzoo/misc/zoo_notifier.dart';
+import 'package:taskzoo/misc/theme_notifier.dart';
 import 'package:taskzoo/widgets/isar_service.dart';
 import 'package:taskzoo/widgets/preference_service.dart';
 
@@ -19,7 +20,12 @@ void main() async {
 
   addDefaultTotalCollectedPieces();
 
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeNotifier(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -28,6 +34,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+
     return MaterialApp(
       title: 'TaskZoo',
 
@@ -84,7 +92,7 @@ class MyApp extends StatelessWidget {
         ],
       ),
 
-      themeMode: ThemeMode.dark,
+      themeMode: themeNotifier.currentTheme,
       home: MyHomePage(title: 'TaskZoo Task Page'),
     );
   }
