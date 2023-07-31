@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
 
         // solid black that is background of all pages besides zoo
         scaffoldBackgroundColor: Colors.black,
-        // solid white that is color of any card
+        // gray that is color of any card
         cardColor: Color.fromARGB(255, 35, 35, 35),
         // black color for icons
         indicatorColor: Colors.white,
