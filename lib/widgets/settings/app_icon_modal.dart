@@ -4,7 +4,7 @@ import 'package:dimensions_theme/dimensions_theme.dart';
 
 Widget appIconModalContent(BuildContext context) {
   double screenHeight = MediaQuery.of(context).size.height;
-  double modalHeight = screenHeight * 0.9; // 80% of the screen height
+  double modalHeight = screenHeight * 0.9; // 90% of the screen height
 
   return Container(
     height: modalHeight,
@@ -15,13 +15,12 @@ Widget appIconModalContent(BuildContext context) {
       ),
       color: Theme.of(context).scaffoldBackgroundColor,
     ),
-    padding: EdgeInsets.symmetric(vertical: Dimensions.of(context).insets.medium),
+    padding: EdgeInsets.only(top: Dimensions.of(context).insets.medium),
     child: ListView(
-      padding: EdgeInsets.only(top: 0),
       children: [
         Center(
           child: Text(
-            'Add a New Task',
+            'App Icon',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
