@@ -4,6 +4,21 @@
             "name": "Tree",
             "backgroundColor": "#FFFFFF",
             "svgPath": "assets/icons_data/tree.svg"
+        },
+        {
+            "name": "Tree",
+            "backgroundColor": "#FFFFFF",
+            "svgPath": "assets/icons_data/tree.svg"
+        },
+        {
+            "name": "Tree",
+            "backgroundColor": "#FFFFFF",
+            "svgPath": "assets/icons_data/tree.svg"
+        },
+        {
+            "name": "Tree",
+            "backgroundColor": "#FFFFFF",
+            "svgPath": "assets/icons_data/tree.svg"
         }
     ]
 }

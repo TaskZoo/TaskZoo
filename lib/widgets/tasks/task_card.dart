@@ -198,20 +198,20 @@ class _TaskCardState extends State<TaskCard> {
               builder: (BuildContext context) {
                 return Theme(
                   data: Theme.of(context)
-                      .copyWith(dialogBackgroundColor: Colors.white),
+                      .copyWith(dialogBackgroundColor: Theme.of(context).cardColor),
                   child: AlertDialog(
                     title: const Text('Delete Task'),
                     content: const Text(
                         'Are you sure you want to delete this task?'),
                     actions: <Widget>[
                       TextButton(
-                        child: const Text('Cancel'),
+                        child: Text('Cancel', style: TextStyle(color: Theme.of(context).indicatorColor),),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
                       TextButton(
-                        child: const Text('Delete'),
+                        child: Text('Delete', style: TextStyle(color: Theme.of(context).indicatorColor),),
                         onPressed: () {
                           deleteTask();
                           Navigator.of(context).pop();
