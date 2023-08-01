@@ -2,7 +2,7 @@
     "icons": [
         {
             "name": "Tree",
-            "backgroundColor": "#CCE6FF",
+            "backgroundColor": "#FFFFFF",
             "svgPath": "assets/icons_data/tree.svg"
         }
     ]
