@@ -111,11 +111,12 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       decoration: BoxDecoration(
-        color: Colors.grey[200],
+        color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(25),
       ),
       child: Text(
-        'Task Days: $_selectedOption',
+        '$_selectedOption Task',
+        textAlign: TextAlign.center,
         style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
