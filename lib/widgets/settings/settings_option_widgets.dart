@@ -93,7 +93,7 @@ class _SettingsOptionWithToggleState extends State<SettingsOptionWithToggle> {
                 maxWidth: Theme.of(context).iconTheme.size! * 2,
                 maxHeight: Theme.of(context).iconTheme.size!),
             child: Switch(
-              activeColor: Color.fromARGB(255, 123, 123, 123),
+          activeColor: Theme.of(context).indicatorColor,
               value: _currentValue,
               onChanged: (bool value) {
                 setState(() {

@@ -48,7 +48,7 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-              'Add a New Task',
+              'New Task',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

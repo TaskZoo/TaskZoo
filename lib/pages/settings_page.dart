@@ -85,7 +85,7 @@ class _SettingsPageState extends State<SettingsPage> {
             SettingsOptionWithToggle(
               leftIcon: Icons.tonality,
               optionText: 'Theme',
-              initialValue: themeNotifier.currentTheme == ThemeMode.dark,
+              initialValue: themeNotifier.currentTheme == ThemeMode.light,
               onToggleChanged: (bool value) {
                 themeNotifier.toggleTheme();
               },
