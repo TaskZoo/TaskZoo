@@ -87,7 +87,7 @@ class _AppIconModalState extends State<AppIconModal> {
                                 ? Border.all(
                                     // If true, set the border
                                     color: Colors.black,
-                                    width: 1.0,
+                                    width: 2.0,
                                   )
                                 : null, // If false, no border
                           ),
