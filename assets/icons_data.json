@@ -11,14 +11,14 @@
             "svgPath": "assets/icons_data/duck.svg"
         },
         {
-            "name": "Tree",
-            "backgroundColor": "#FFFFFF",
-            "svgPath": "assets/icons_data/tree.svg"
+            "name": "Wolf",
+            "backgroundColor": "#596881",
+            "svgPath": "assets/icons_data/wolf.svg"
         },
         {
-            "name": "Tree",
-            "backgroundColor": "#FFFFFF",
-            "svgPath": "assets/icons_data/tree.svg"
+            "name": "Panda",
+            "backgroundColor": "#5EB939",
+            "svgPath": "assets/icons_data/panda.svg"
         }
     ]
 }
