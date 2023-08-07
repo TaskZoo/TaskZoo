@@ -60,8 +60,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                   isScrollControlled: true,
-                  builder: (BuildContext context) =>
-                      appIconModalContent(context),
+                  builder: (BuildContext context) {
+                    return AppIconModal(
+                        iconsDataPath: 'assets/icons_data.json');
+                  },
                 );
               },
             ),
