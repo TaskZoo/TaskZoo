@@ -70,16 +70,6 @@ class _SettingsPageState extends State<SettingsPage> {
               color: Theme.of(context).dividerColor,
             ),
             SettingsOptionWithIcon(
-              leftIcon: Icons.notifications,
-              optionText: 'Notifications',
-              rightActionIcon: Icons.expand_less,
-              onActionTap: () => print('Notifications icon pressed!'),
-            ),
-            Container(
-              height: 1.0,
-              color: Theme.of(context).dividerColor,
-            ),
-            SettingsOptionWithIcon(
               leftIcon: Icons.help_outline,
               optionText: 'Help',
               rightActionIcon: Icons.expand_less,

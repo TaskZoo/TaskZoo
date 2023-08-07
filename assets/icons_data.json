@@ -6,9 +6,9 @@
             "svgPath": "assets/icons_data/tree.svg"
         },
         {
-            "name": "Tree",
-            "backgroundColor": "#FFFFFF",
-            "svgPath": "assets/icons_data/tree.svg"
+            "name": "Duck",
+            "backgroundColor": "#68B6CF",
+            "svgPath": "assets/icons_data/duck.svg"
         },
         {
             "name": "Tree",
