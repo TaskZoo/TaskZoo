@@ -28,11 +28,11 @@
                 },
                 {
                     "name": "Walrus",
-                    "svgPath": "assets/biomes_data/arctic/reindeer.svg"
+                    "svgPath": "assets/biomes_data/arctic/walrus.svg"
                 },
                 {
                     "name": "Arctic Fox",
-                    "svgPath": "assets/biomes_data/arctic/reindeer.svg"
+                    "svgPath": "assets/biomes_data/arctic/arctic_fox.svg"
                 }
             ]
         },
