@@ -25,6 +25,14 @@
                 {
                     "name": "Reindeer",
                     "svgPath": "assets/biomes_data/arctic/reindeer.svg"
+                },
+                {
+                    "name": "Walrus",
+                    "svgPath": "assets/biomes_data/arctic/reindeer.svg"
+                },
+                {
+                    "name": "Arctic Fox",
+                    "svgPath": "assets/biomes_data/arctic/reindeer.svg"
                 }
             ]
         },
@@ -55,10 +63,6 @@
                     "svgPath": "assets/biomes_data/mountain/bear.svg"
                 },
                 {
-                    "name": "Fox",
-                    "svgPath": "assets/biomes_data/mountain/fox.svg"
-                },
-                {
                     "name": "Rabbit",
                     "svgPath": "assets/biomes_data/mountain/rabbit.svg"
                 },
@@ -71,13 +75,12 @@
         {
             "name": "ocean",
             "primaryColor": "#00B0D8",
-            "secondaryColor": "4DCADB",
+            "secondaryColor": "#4DCADB",
             "backgroundPath": "assets/biomes_data/ocean/ocean_background_midjourney.png",
             "icon": {
                 "name": "Wave",
                 "svgPath": "assets/biomes_data/ocean/wave.svg"
             },
-            
             "animals": [
                 {
                     "name": "Dolphin",
@@ -94,6 +97,86 @@
                 {
                     "name": "Sea Turtle",
                     "svgPath": "assets/biomes_data/ocean/sea_turtle.svg"
+                },
+                {
+                    "name": "Stingray",
+                    "svgPath": "assets/biomes_data/ocean/stingray.svg"
+                },
+                {
+                    "name": "Crab",
+                    "svgPath": "assets/biomes_data/ocean/crab.svg"
+                }
+            ]
+        },
+        {
+            "name": "savannah",
+            "primaryColor": "#DEB887",
+            "secondaryColor": "#EDD9A2",
+            "backgroundPath": "assets/biomes_data/savannah/savannah_background_midjourney.png",
+            "icon": {
+                "name": "Grass",
+                "svgPath": "assets/biomes_data/savannah/grass.svg"
+            },
+            "animals": [
+                {
+                    "name": "Lion",
+                    "svgPath": "assets/biomes_data/savannah/lion.svg"
+                },
+                {
+                    "name": "Elephant",
+                    "svgPath": "assets/biomes_data/savannah/elephant.svg"
+                },
+                {
+                    "name": "Giraffe",
+                    "svgPath": "assets/biomes_data/savannah/giraffe.svg"
+                },
+                {
+                    "name": "Zebra",
+                    "svgPath": "assets/biomes_data/savannah/zebra.svg"
+                },
+                {
+                    "name": "Cheetah",
+                    "svgPath": "assets/biomes_data/savannah/cheetah.svg"
+                },
+                {
+                    "name": "Wildebeest",
+                    "svgPath": "assets/biomes_data/savannah/wildebeest.svg"
+                }
+            ]
+        },
+        {
+            "name": "swamp",
+            "primaryColor": "#6B8E23",
+            "secondaryColor": "#99C24D",
+            "backgroundPath": "assets/biomes_data/swamp/swamp_background_midjourney.png",
+            "icon": {
+                "name": "Wetland",
+                "svgPath": "assets/biomes_data/swamp/wetland.svg"
+            },
+            "animals": [
+                {
+                    "name": "Alligator",
+                    "svgPath": "assets/biomes_data/swamp/alligator.svg"
+                },
+                {
+                    "name": "Frog",
+                    "svgPath": "assets/biomes_data/swamp/frog.svg"
+                },
+                {
+                    "name": "Snapping Turtle",
+                    "svgPath": "assets/biomes_data/swamp/snapping_turtle.svg"
+                },
+                {
+                    "name": "Heron",
+                    "svgPath": "assets/biomes_data/swamp/heron.svg"
+                },
+                {
+                    "name": "Snake",
+                    "svgPath": "assets/biomes_data/swamp/snake.svg"
+                },
+                {
+                    "name": "Dragonfly",
+                    "svgPath": "assets/biomes_data/swamp/dragonfly.svg"
                 }
             ]
         }
