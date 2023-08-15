@@ -10,6 +10,7 @@ import 'package:taskzoo/widgets/isar_service.dart';
 import 'package:taskzoo/widgets/notifications/notification_service.dart';
 import 'package:taskzoo/widgets/settings/app_icon_modal.dart';
 import 'package:taskzoo/widgets/settings/settings_option_widgets.dart';
+import 'package:taskzoo/widgets/settings/onboarding_screen.dart';
 
 class SettingsPage extends StatefulWidget {
   final IsarService service;
@@ -76,7 +77,11 @@ class _SettingsPageState extends State<SettingsPage> {
               leftIcon: Icons.help_outline,
               optionText: 'Help',
               rightActionIcon: Icons.expand_less,
-              onActionTap: () => print('Help icon pressed!'),
+              onActionTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => OnboardingScreen()),
+                );
+              },
             )
           ]),
         ));
