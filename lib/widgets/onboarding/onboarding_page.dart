@@ -21,67 +21,62 @@ class OnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: HexColor(topBackgroundColor),
-      child: Column(
-        children: [
-          Expanded(
-            flex: 5,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                // White radial gradient
-                Container(
-                  decoration: BoxDecoration(
-                    gradient: RadialGradient(
-                      colors: [
-                        Colors.white.withOpacity(0.7),
-                        Colors.white.withOpacity(0)
-                      ],
-                      radius: 0.5,
+      child: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              flex: 5,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  // White radial gradient
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: RadialGradient(
+                        colors: [
+                          Colors.white.withOpacity(0.7),
+                          Colors.white.withOpacity(0)
+                        ],
+                        radius: 0.5,
+                      ),
                     ),
                   ),
-                ),
-                // SVG asset from animalSvgPath
-                SvgPicture.asset(
-                  animalSvgPath,
-                  // You can set width, height, color, etc. as needed
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft:
-                      Radius.circular(Dimensions.of(context).radii.largest),
-                  topRight:
-                      Radius.circular(Dimensions.of(context).radii.largest),
-                ),
-              ),
-              child: Center(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                      fontSize: 24), // You can customize the style as needed
-                ),
+                  // SVG asset from animalSvgPath
+                  SvgPicture.asset(
+                    animalSvgPath,
+                    // You can set width, height, color, etc. as needed
+                  ),
+                ],
               ),
             ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              color: Colors.white, // Bottom container with white color
-              child: Center(
-                child: Text(
-                  title,
-                  style: TextStyle(fontSize: 24),
+            Expanded(
+              flex: 1,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft:
+                        Radius.circular(Dimensions.of(context).radii.largest),
+                    topRight:
+                        Radius.circular(Dimensions.of(context).radii.largest),
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    title,
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+            Expanded(
+              flex: 5,
+              child: Container(
+                color: Theme.of(context).cardColor,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
