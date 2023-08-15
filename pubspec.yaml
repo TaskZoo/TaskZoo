@@ -88,6 +88,7 @@ flutter:
     - assets/biomes_data/ocean/
     - assets/biomes_data/savannah/
     - assets/biomes_data/swamp/
+    - assets/onboarding/
     - assets/TaskCompletion.wav
 
   # An image asset can refer to one or more resolution-specific "variants", see
