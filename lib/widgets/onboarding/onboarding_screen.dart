@@ -133,7 +133,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               animalSvgPath: "assets/onboarding/flamingo.svg",
               content: [
                 const Text(
-                  "Create tasks for goals that you want to achieve and filter by tags to keep everything organized.",
+                  "Hold down a task card to mark it as complete, or tap the task card to modify/delete the task.",
                   style: TextStyle(fontSize: 20),
                 ),
               ]),
@@ -143,7 +143,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               animalSvgPath: "assets/onboarding/parrot.svg",
               content: [
                 const Text(
-                  "Create tasks for goals that you want to achieve and filter by tags to keep everything organized.",
+                  "Get rewarded with pieces every time you complete a task!",
                   style: TextStyle(fontSize: 20),
                 ),
               ]),
@@ -153,7 +153,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               animalSvgPath: "assets/onboarding/lion.svg",
               content: [
                 const Text(
-                  "Create tasks for goals that you want to achieve and filter by tags to keep everything organized.",
+                  "Tapping an animal that is incomplete will use pieces to build that animal.",
                   style: TextStyle(fontSize: 20),
                 ),
               ]),
