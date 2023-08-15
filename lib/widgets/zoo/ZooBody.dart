@@ -6,7 +6,7 @@ import 'package:dimensions_theme/dimensions_theme.dart';
 import 'package:taskzoo/widgets/zoo/AnimalBuilder.dart';
 
 import 'package:taskzoo/misc/biomes_model.dart';
-
+import 'package:taskzoo/misc/hex_color.dart';
 import 'package:taskzoo/misc/zoo_notifier.dart';
 
 class ZooBody extends StatelessWidget {
@@ -48,16 +48,4 @@ class ZooBody extends StatelessWidget {
       },
     );
   }
-}
-
-class HexColor extends Color {
-  static int _getColorFromHex(String hexColor) {
-    hexColor = hexColor.toUpperCase().replaceAll("#", "");
-    if (hexColor.length == 6) {
-      hexColor = "FF" + hexColor;
-    }
-    return int.parse(hexColor, radix: 16);
-  }
-
-  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }

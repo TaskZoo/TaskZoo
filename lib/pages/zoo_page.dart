@@ -9,7 +9,7 @@ import 'package:taskzoo/widgets/zoo/BackgroundImage.dart';
 import 'package:taskzoo/widgets/zoo/ZooBody.dart';
 
 import 'package:taskzoo/misc/biomes_model.dart';
-
+import 'package:taskzoo/misc/hex_color.dart';
 import 'package:taskzoo/misc/zoo_notifier.dart';
 
 class ZooPage extends StatefulWidget {
@@ -79,16 +79,4 @@ class _ZooPageState extends State<ZooPage> {
       },
     );
   }
-}
-
-class HexColor extends Color {
-  static int _getColorFromHex(String hexColor) {
-    hexColor = hexColor.toUpperCase().replaceAll("#", "");
-    if (hexColor.length == 6) {
-      hexColor = "FF" + hexColor;
-    }
-    return int.parse(hexColor, radix: 16);
-  }
-
-  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
