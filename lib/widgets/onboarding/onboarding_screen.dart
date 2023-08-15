@@ -34,8 +34,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         children: [
           OnboardingPage(
               title: "Create Tasks",
-              topBackgroundColor: "#00CDFF",
-              animalSvgPath: "assets/onboarding/flamingo.svg",
+              topBackgroundColor: "#FFA06B",
+              animalSvgPath: "assets/onboarding/llama.svg",
               content: [
                 const Text(
                   "Create tasks for goals that you want to achieve and filter by tags to keep everything organized.",
@@ -127,9 +127,36 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ]),
               ]),
-          Center(child: Text('Onboarding 2')),
-          Center(child: Text('Onboarding 3')),
-          Center(child: Text('Onboarding 4')),
+          OnboardingPage(
+              title: "Use Tasks",
+              topBackgroundColor: "#45DAFF",
+              animalSvgPath: "assets/onboarding/flamingo.svg",
+              content: [
+                const Text(
+                  "Create tasks for goals that you want to achieve and filter by tags to keep everything organized.",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ]),
+          OnboardingPage(
+              title: "Collect Pieces",
+              topBackgroundColor: "#85FF91",
+              animalSvgPath: "assets/onboarding/parrot.svg",
+              content: [
+                const Text(
+                  "Create tasks for goals that you want to achieve and filter by tags to keep everything organized.",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ]),
+          OnboardingPage(
+              title: "Build Animals",
+              topBackgroundColor: "#FFEDA8",
+              animalSvgPath: "assets/onboarding/lion.svg",
+              content: [
+                const Text(
+                  "Create tasks for goals that you want to achieve and filter by tags to keep everything organized.",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ]),
         ],
       ),
       bottomNavigationBar: CustomNavBar(
