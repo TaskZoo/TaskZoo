@@ -37,14 +37,95 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               topBackgroundColor: "#00CDFF",
               animalSvgPath: "assets/onboarding/flamingo.svg",
               content: [
-                Text(
-                  "Create tasks for goals that you want to achieve, and filter by tags to keep everything organized.",
+                const Text(
+                  "Create tasks for goals that you want to achieve and filter by tags to keep everything organized.",
                   style: TextStyle(fontSize: 20),
                 ),
-                Text(
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  const Icon(Icons.keyboard_control),
+                  Container(
+                    width: 1,
+                    height: 40,
+                    color: Theme.of(context).indicatorColor,
+                    margin: EdgeInsets.symmetric(
+                        horizontal: Dimensions.of(context).insets.smaller),
+                  ),
+                  const Icon(Icons.add),
+                ]),
+                const Text(
                   "Use daily, weekly, and monthly tasks to encourage productivity over different time periods.",
                   style: TextStyle(fontSize: 20),
-                )
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Theme.of(context).indicatorColor,
+                        width: Dimensions.of(context).borderWidths.small,
+                      ),
+                      color: Theme.of(context).cardColor,
+                    ),
+                    child: Center(
+                      child: Text(
+                        "D",
+                        style: TextStyle(
+                          color: Theme.of(context).indicatorColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: Dimensions.of(context).insets.small),
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Theme.of(context).indicatorColor,
+                        width: Dimensions.of(context).borderWidths.small,
+                      ),
+                      color: Theme.of(context).cardColor,
+                    ),
+                    child: Center(
+                      child: Text(
+                        "W",
+                        style: TextStyle(
+                          color: Theme.of(context).indicatorColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: Dimensions.of(context).insets.small),
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Theme.of(context).indicatorColor,
+                        width: Dimensions.of(context).borderWidths.small,
+                      ),
+                      color: Theme.of(context).cardColor,
+                    ),
+                    child: Center(
+                      child: Text(
+                        "M",
+                        style: TextStyle(
+                          color: Theme.of(context).indicatorColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ]),
               ]),
           Center(child: Text('Onboarding 2')),
           Center(child: Text('Onboarding 3')),
