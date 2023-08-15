@@ -33,10 +33,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         },
         children: [
           OnboardingPage(
+              title: "Create Tasks",
               topBackgroundColor: "#00CDFF",
               animalSvgPath: "assets/onboarding/flamingo.svg",
-              title: "Create Tasks",
-              content: [Text("Create tasks for goals...")]),
+              content: [
+                Text(
+                  "Create tasks for goals that you want to achieve, and filter by tags to keep everything organized.",
+                  style: TextStyle(fontSize: 20),
+                ),
+                Text(
+                  "Use daily, weekly, and monthly tasks to encourage productivity over different time periods.",
+                  style: TextStyle(fontSize: 20),
+                )
+              ]),
           Center(child: Text('Onboarding 2')),
           Center(child: Text('Onboarding 3')),
           Center(child: Text('Onboarding 4')),

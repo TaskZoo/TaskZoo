@@ -51,6 +51,8 @@ class _CustomNavBarState extends State<CustomNavBar> {
                     onTap: () {
                       if (widget.currentIndex < 3) {
                         widget.onTap(widget.currentIndex + 1);
+                      } else {
+                        Navigator.pop(context);
                       }
                     },
                     child: Padding(

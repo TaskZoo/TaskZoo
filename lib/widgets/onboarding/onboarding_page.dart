@@ -5,15 +5,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:taskzoo/misc/hex_color.dart';
 
 class OnboardingPage extends StatelessWidget {
+  final String title;
   final String topBackgroundColor;
   final String animalSvgPath;
-  final String title;
   final List<Widget> content;
 
   OnboardingPage({
+    required this.title,
     required this.topBackgroundColor,
     required this.animalSvgPath,
-    required this.title,
     required this.content,
   });
 
@@ -53,7 +53,7 @@ class OnboardingPage extends StatelessWidget {
               flex: 1,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.only(
                     topLeft:
                         Radius.circular(Dimensions.of(context).radii.largest),
@@ -73,6 +73,11 @@ class OnboardingPage extends StatelessWidget {
               flex: 5,
               child: Container(
                 color: Theme.of(context).cardColor,
+                padding: EdgeInsets.all(Dimensions.of(context).insets.largest),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: content),
               ),
             ),
           ],
