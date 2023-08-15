@@ -99,8 +99,8 @@
                     "svgPath": "assets/biomes_data/ocean/sea_turtle.svg"
                 },
                 {
-                    "name": "Stingray",
-                    "svgPath": "assets/biomes_data/ocean/stingray.svg"
+                    "name": "Shark",
+                    "svgPath": "assets/biomes_data/ocean/shark.svg"
                 },
                 {
                     "name": "Crab",
