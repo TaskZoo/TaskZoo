@@ -110,8 +110,8 @@
         },
         {
             "name": "savannah",
-            "primaryColor": "#DEB887",
-            "secondaryColor": "#EDD9A2",
+            "primaryColor": "#FCC652",
+            "secondaryColor": "#FCE189",
             "backgroundPath": "assets/biomes_data/savannah/savannah_background_midjourney.png",
             "icon": {
                 "name": "Grass",
