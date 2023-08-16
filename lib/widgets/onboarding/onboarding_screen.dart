@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:taskzoo/widgets/onboarding/custom_nav_bar.dart';
 import 'package:taskzoo/widgets/onboarding/onboarding_page.dart';
@@ -171,6 +172,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           const Text(
             "Tapping an animal that is incomplete will use pieces to build that animal.",
             style: TextStyle(fontSize: 20),
+          ),
+          SvgPicture.asset(
+            "assets/onboarding/rat.svg",
+            height: 175,
           ),
           const Text(
             "Once an animal is complete, it becomes part of your zoo!",

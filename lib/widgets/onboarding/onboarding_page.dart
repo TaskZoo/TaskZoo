@@ -41,10 +41,8 @@ class OnboardingPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // SVG asset from animalSvgPath
                   SvgPicture.asset(
                     animalSvgPath,
-                    // You can set width, height, color, etc. as needed
                   ),
                 ],
               ),
