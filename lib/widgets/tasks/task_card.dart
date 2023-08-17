@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
 import 'package:flutter/services.dart';
+import 'package:progress_border/progress_border.dart';
 
 import 'package:taskzoo/widgets/isar_service.dart';
 import 'package:taskzoo/widgets/notifications/notification_service.dart';

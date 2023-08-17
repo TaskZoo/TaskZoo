@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:progress_border/progress_border.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
@@ -99,7 +100,7 @@ class _FlippingTaskCardState extends State<FlippingTaskCard> {
     super.initState();
     _controller = FlipCardController();
 
-    // Initialize the timer to toggle the card every 2 seconds
+    // Initialize the timer to toggle the card every 3 seconds
     _timer = Timer.periodic(Duration(seconds: 3), (timer) {
       _controller.toggleCard();
     });
@@ -136,6 +137,63 @@ class _FlippingTaskCardState extends State<FlippingTaskCard> {
           color: Theme.of(context).cardColor,
         ),
         child: _getCardBack(),
+      ),
+    );
+  }
+}
+
+class HoldingTaskCard extends StatefulWidget {
+  @override
+  _HoldingTaskCardState createState() => _HoldingTaskCardState();
+}
+
+class _HoldingTaskCardState extends State<HoldingTaskCard>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onLongPressStart: (details) {
+        _controller.animateTo(1);
+      },
+      onLongPressEnd: (details) {
+        if (!_controller.isCompleted) {
+          _controller.animateBack(0);
+        }
+      },
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(Dimensions.of(context).radii.medium),
+              color: Colors.blue,
+              border: ProgressBorder.all(
+                color: Colors.black,
+                width: 2,
+                progress: _controller.value,
+                strokeAlign: BorderSide.strokeAlignCenter,
+              ),
+            ),
+          );
+        },
       ),
     );
   }

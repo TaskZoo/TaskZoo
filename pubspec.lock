@@ -648,6 +648,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.1"
+  progress_border:
+    dependency: "direct main"
+    description:
+      name: progress_border
+      sha256: "7f29def89740391271fa0e9387c5e45bcbe9a917f64e1ce9fcb38380d366428a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   provider:
     dependency: "direct main"
     description:

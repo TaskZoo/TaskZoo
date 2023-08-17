@@ -156,7 +156,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               children: [
                 Expanded(
                     child:
-                        AspectRatio(aspectRatio: 1, child: FlippingTaskCard())),
+                        AspectRatio(aspectRatio: 1, child: HoldingTaskCard())),
                 SizedBox(width: Dimensions.of(context).insets.medium),
                 Expanded(
                     child:
