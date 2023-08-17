@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:taskzoo/widgets/tasks/task.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
 
@@ -77,8 +78,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 const Spacer(),
                 IconButton(
                   iconSize: appBarSize / 1.5,
-                  icon: const Icon(Icons.keyboard_control),
-                  color: Theme.of(context).indicatorColor,
+                  icon: SvgPicture.asset("assets/custom_icons/filter.svg",
+                      color: Theme.of(context).iconTheme.color,
+                      semanticsLabel: 'Label'),
                   onPressed: () {
                     showTagDropdown(
                         context, selectedTags, tasks); // Pass tasks here
@@ -88,12 +90,14 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   width: 1,
                   height: appBarSize,
                   color: Theme.of(context).indicatorColor,
-                  margin: EdgeInsets.symmetric(horizontal: Dimensions.of(context).insets.smaller),
+                  margin: EdgeInsets.symmetric(
+                      horizontal: Dimensions.of(context).insets.smaller),
                 ),
                 IconButton(
                     iconSize: appBarSize / 1.5,
-                    icon: const Icon(Icons.add),
-                    color: Theme.of(context).indicatorColor,
+                    icon: SvgPicture.asset("assets/custom_icons/plus.svg",
+                        color: Theme.of(context).iconTheme.color,
+                        semanticsLabel: 'Label'),
                     onPressed: widget.onAddTaskPressed)
               ],
             ),
@@ -124,8 +128,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(Dimensions.of(context).radii.largest),
-                  topRight: Radius.circular(Dimensions.of(context).radii.largest),
+                  topLeft:
+                      Radius.circular(Dimensions.of(context).radii.largest),
+                  topRight:
+                      Radius.circular(Dimensions.of(context).radii.largest),
                 ),
               ),
               child: Column(
@@ -214,7 +220,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         backgroundColor: Theme.of(context).indicatorColor,
                         foregroundColor: Theme.of(context).cardColor,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(Dimensions.of(context).radii.larger),
+                          borderRadius: BorderRadius.circular(
+                              Dimensions.of(context).radii.larger),
                         ),
                         padding: EdgeInsets.symmetric(
                             vertical: Dimensions.of(context).insets.medium,
