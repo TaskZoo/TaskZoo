@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
 
@@ -18,7 +19,7 @@ class HomeStatsCard extends StatelessWidget {
     required this.selectedTags,
   }) : super(key: key);
 
-  Widget _buildStreamWidget(Stream<int> stream, Icon icon) {
+  Widget _buildStreamWidget(Stream<int> stream, SvgPicture icon) {
     return StreamBuilder<int>(
       stream: stream,
       builder: (context, snapshot) {
@@ -58,12 +59,21 @@ class HomeStatsCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildStreamWidget(totalCollectedPiecesStream,
-                    const Icon(FontAwesomeIcons.puzzlePiece)),
-                _buildStreamWidget(countTasks(value, selectedTags),
-                    const Icon(FontAwesomeIcons.listCheck)),
-                _buildStreamWidget(countCompletedTasks(value, selectedTags),
-                    const Icon(FontAwesomeIcons.check)),
+                _buildStreamWidget(
+                    totalCollectedPiecesStream,
+                    SvgPicture.asset("assets/custom_icons/puzzle_piece.svg",
+                        color: Theme.of(context).iconTheme.color,
+                        semanticsLabel: 'Label')),
+                _buildStreamWidget(
+                    countTasks(value, selectedTags),
+                    SvgPicture.asset("assets/custom_icons/clock.svg",
+                        color: Theme.of(context).iconTheme.color,
+                        semanticsLabel: 'Label')),
+                _buildStreamWidget(
+                    countCompletedTasks(value, selectedTags),
+                    SvgPicture.asset("assets/custom_icons/check.svg",
+                        color: Theme.of(context).iconTheme.color,
+                        semanticsLabel: 'Label')),
               ],
             ),
           ),
