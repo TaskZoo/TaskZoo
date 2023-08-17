@@ -148,21 +148,44 @@ class HoldingTaskCard extends StatefulWidget {
 }
 
 class _HoldingTaskCardState extends State<HoldingTaskCard>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+    with TickerProviderStateMixin {
+  late AnimationController _progressController;
+  late AnimationController _pulseController;
+  late Animation<double> _borderWidth;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
+    _progressController = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
     );
+
+    _pulseController = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+
+    _borderWidth = Tween<double>(begin: 2, end: 4).animate(_pulseController)
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          _progressController.reset();
+          _pulseController.reverse();
+        }
+      });
+
+    _progressController.addListener(() {
+      if (_progressController.value == 1.0) {
+        print("Task complete");
+        _pulseController.forward();
+      }
+    });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _progressController.dispose();
+    _pulseController.dispose();
     super.dispose();
   }
 
@@ -170,15 +193,15 @@ class _HoldingTaskCardState extends State<HoldingTaskCard>
   Widget build(BuildContext context) {
     return GestureDetector(
       onLongPressStart: (details) {
-        _controller.animateTo(1);
+        _progressController.animateTo(1);
       },
       onLongPressEnd: (details) {
-        if (!_controller.isCompleted) {
-          _controller.animateBack(0);
+        if (!_progressController.isCompleted) {
+          _progressController.animateBack(0);
         }
       },
       child: AnimatedBuilder(
-        animation: _controller,
+        animation: Listenable.merge([_progressController, _pulseController]),
         builder: (context, child) {
           return Container(
             decoration: BoxDecoration(
@@ -187,8 +210,8 @@ class _HoldingTaskCardState extends State<HoldingTaskCard>
               color: Colors.blue,
               border: ProgressBorder.all(
                 color: Colors.black,
-                width: 2,
-                progress: _controller.value,
+                width: _borderWidth.value, // Use animated border width
+                progress: _progressController.value,
                 strokeAlign: BorderSide.strokeAlignCenter,
               ),
             ),

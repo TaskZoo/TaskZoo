@@ -30,12 +30,16 @@ class TaskCard extends StatefulWidget {
   _TaskCardState createState() => _TaskCardState();
 }
 
-class _TaskCardState extends State<TaskCard> {
-  bool _isTapped = false;
+class _TaskCardState extends State<TaskCard>
+    with SingleTickerProviderStateMixin {
   late DateTime previousDate;
   late DateTime nextCompletionDate;
   late HashSet<DateTime> completedDates;
   final SoundPlayer player = SoundPlayer();
+
+  late AnimationController _progressController;
+  late AnimationController _pulseController;
+  late Animation<double> _borderWidth;
 
   //Make modifications to previous date when storing data persistently
   @override
@@ -57,6 +61,38 @@ class _TaskCardState extends State<TaskCard> {
     widget.task.last30DaysDates = _getLast30DaysDates();
     widget.task.completionCount30days =
         _getCompletionCount(widget.task.last30DaysDates);
+
+    _progressController = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+
+    _pulseController = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+
+    _borderWidth = Tween<double>(begin: 2, end: 4).animate(_pulseController)
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          _progressController.reset();
+          _pulseController.reverse();
+        }
+      });
+
+    _progressController.addListener(() {
+      if (_progressController.value == 1.0) {
+        print("Task complete");
+        _pulseController.forward();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _progressController.dispose();
+    _pulseController.dispose();
+    super.dispose();
   }
 
   Widget _getFrontTopInfo() {
@@ -286,14 +322,20 @@ class _TaskCardState extends State<TaskCard> {
     _setCompletionStatus(schedule);
 
     return GestureDetector(
-        onTap: () {
-          setState(() {
-            _isTapped = !_isTapped;
-          });
-        },
-        onLongPress: !widget.task.isCompleted &&
-                !_isTapped &&
-                widget.task.isMeantForToday
+        onLongPressStart:
+            !widget.task.isCompleted && widget.task.isMeantForToday
+                ? (details) {
+                    _progressController.animateTo(1);
+                  }
+                : null,
+        onLongPressEnd: !widget.task.isCompleted && widget.task.isMeantForToday
+            ? (details) {
+                if (!_progressController.isCompleted) {
+                  _progressController.animateBack(0);
+                }
+              }
+            : null,
+        onLongPress: !widget.task.isCompleted && widget.task.isMeantForToday
             ? () {
                 setState(() {
                   updatePiecesInformation();
@@ -309,14 +351,25 @@ class _TaskCardState extends State<TaskCard> {
           fill: Fill.fillBack,
           direction: FlipDirection.HORIZONTAL,
           side: CardSide.FRONT,
-          front: Container(
-            padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
-            decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.circular(Dimensions.of(context).radii.medium),
-              color: Theme.of(context).cardColor,
-            ),
-            child: _getCardFront(schedule),
+          front: AnimatedBuilder(
+            animation:
+                Listenable.merge([_progressController, _pulseController]),
+            builder: (context, child) {
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                      Dimensions.of(context).radii.medium),
+                  color: Colors.blue,
+                  border: ProgressBorder.all(
+                    color: Colors.black,
+                    width: _borderWidth.value, // Use animated border width
+                    progress: _progressController.value,
+                    strokeAlign: BorderSide.strokeAlignCenter,
+                  ),
+                ),
+                child: _getCardFront(schedule),
+              );
+            },
           ),
           back: Container(
             padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
