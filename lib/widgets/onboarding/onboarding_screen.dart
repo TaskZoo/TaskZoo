@@ -35,15 +35,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             style: TextStyle(fontSize: 20),
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const Icon(Icons.keyboard_control),
+            SvgPicture.asset("assets/custom_icons/filter.svg",
+                color: Theme.of(context).iconTheme.color,
+                semanticsLabel: 'Filter'),
             Container(
               width: 1,
               height: 40,
               color: Theme.of(context).indicatorColor,
               margin: EdgeInsets.symmetric(
-                  horizontal: Dimensions.of(context).insets.smaller),
+                  horizontal: Dimensions.of(context).insets.large),
             ),
-            const Icon(Icons.add),
+            SvgPicture.asset("assets/custom_icons/plus.svg",
+                color: Theme.of(context).iconTheme.color,
+                semanticsLabel: 'Plus'),
           ]),
           const Text(
             "Use daily, weekly, and monthly tasks to encourage productivity over different time periods.",
@@ -59,7 +63,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   color: Theme.of(context).indicatorColor,
                   width: Dimensions.of(context).borderWidths.small,
                 ),
-                color: Theme.of(context).cardColor,
               ),
               child: Center(
                 child: Text(
