@@ -137,25 +137,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           SizedBox(
             height: Dimensions.of(context).insets.medium,
           ),
-          Expanded(
-              child: Container(
-            color: Theme.of(context).scaffoldBackgroundColor,
+          Container(
             padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
-            child: Center(
-              child: GridView.count(
-                physics: NeverScrollableScrollPhysics(),
-                crossAxisCount: 2, // Number of columns
-                mainAxisSpacing:
-                    Dimensions.of(context).insets.medium, // Vertical spacing
-                crossAxisSpacing:
-                    Dimensions.of(context).insets.medium, // Horizontal spacing
-                children: [
-                  TutorialTaskCard(),
-                  TutorialTaskCard(),
-                ],
-              ),
+            color: Theme.of(context).scaffoldBackgroundColor,
+            child: Row(
+              children: [
+                Expanded(
+                    child:
+                        AspectRatio(aspectRatio: 1, child: TutorialTaskCard())),
+                SizedBox(width: Dimensions.of(context).insets.medium),
+                Expanded(
+                    child:
+                        AspectRatio(aspectRatio: 1, child: TutorialTaskCard())),
+              ],
             ),
-          )),
+          ),
         ]);
 
     Widget onboarding_page_3 = OnboardingPage(
