@@ -43,19 +43,15 @@ class _TutorialTaskCardState extends State<TutorialTaskCard> {
       );
     }
 
-    return Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: Dimensions.of(context).insets.small),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SvgPicture.asset("assets/custom_icons/clock.svg",
-                color: Theme.of(context).iconTheme.color,
-                semanticsLabel: 'Clock'),
-            SizedBox(width: Dimensions.of(context).insets.smaller),
-            Text("5 Hours Left"),
-          ],
-        ));
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SvgPicture.asset("assets/custom_icons/clock.svg",
+            color: Theme.of(context).iconTheme.color, semanticsLabel: 'Clock'),
+        SizedBox(width: Dimensions.of(context).insets.smaller),
+        Text("15 Hours Left"),
+      ],
+    );
   }
 
   Widget _getCardFront() {

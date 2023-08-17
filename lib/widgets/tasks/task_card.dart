@@ -101,28 +101,24 @@ class _TaskCardState extends State<TaskCard> {
 
     // if neither of the two above apply, we need to let the user know how much time/tasks they have left
 
-    return Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: Dimensions.of(context).insets.small),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SvgPicture.asset("assets/custom_icons/clock.svg",
+            color: Theme.of(context).iconTheme.color, semanticsLabel: 'Clock'),
+        SizedBox(width: Dimensions.of(context).insets.smaller),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SvgPicture.asset("assets/custom_icons/clock.svg",
-                color: Theme.of(context).iconTheme.color,
-                semanticsLabel: 'Clock'),
-            SizedBox(width: Dimensions.of(context).insets.smaller),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(_getTimeUntilNextCompletionDate()),
-                if (_setCompletionStatus(schedule) > 0)
-                  Text(
-                    '${_setCompletionStatus(schedule)} tasks left',
-                  ),
-              ],
-            ),
+            Text(_getTimeUntilNextCompletionDate()),
+            if (_setCompletionStatus(schedule) > 0)
+              Text(
+                '${_setCompletionStatus(schedule)} tasks left',
+              ),
           ],
-        ));
+        ),
+      ],
+    );
   }
 
   Widget _getCardFront(String schedule) {
