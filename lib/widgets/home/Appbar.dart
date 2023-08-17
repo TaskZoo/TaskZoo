@@ -80,7 +80,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   iconSize: appBarSize / 1.5,
                   icon: SvgPicture.asset("assets/custom_icons/filter.svg",
                       color: Theme.of(context).iconTheme.color,
-                      semanticsLabel: 'Label'),
+                      semanticsLabel: 'Filter'),
                   onPressed: () {
                     showTagDropdown(
                         context, selectedTags, tasks); // Pass tasks here
@@ -97,7 +97,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     iconSize: appBarSize / 1.5,
                     icon: SvgPicture.asset("assets/custom_icons/plus.svg",
                         color: Theme.of(context).iconTheme.color,
-                        semanticsLabel: 'Label'),
+                        semanticsLabel: 'Plus'),
                     onPressed: widget.onAddTaskPressed)
               ],
             ),

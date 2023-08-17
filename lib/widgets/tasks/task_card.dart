@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
 import 'package:flutter/services.dart';
@@ -92,10 +93,9 @@ class _TaskCardState extends State<TaskCard> {
 
     // if the task is completed the user gets a checkmark
     if (widget.task.isCompleted) {
-      return const Center(
-        child: Icon(
-          FontAwesomeIcons.check,
-        ),
+      return Center(
+        child: SvgPicture.asset("assets/custom_icons/check.svg",
+            color: Theme.of(context).iconTheme.color, semanticsLabel: 'Check'),
       );
     }
 
@@ -107,7 +107,9 @@ class _TaskCardState extends State<TaskCard> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Icon(FontAwesomeIcons.clock),
+            SvgPicture.asset("assets/custom_icons/clock.svg",
+                color: Theme.of(context).iconTheme.color,
+                semanticsLabel: 'Clock'),
             SizedBox(width: Dimensions.of(context).insets.smaller),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
