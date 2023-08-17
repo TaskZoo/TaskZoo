@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
+import 'package:flutter_svg/svg.dart';
 
 class SettingsOptionWithIcon extends StatefulWidget {
-  final IconData leftIcon;
+  final String leftIconPath;
   final String optionText;
   final IconData rightActionIcon;
   final void Function() onActionTap;
 
   SettingsOptionWithIcon({
-    required this.leftIcon,
+    required this.leftIconPath,
     required this.optionText,
     required this.rightActionIcon,
     required this.onActionTap,
@@ -28,7 +29,8 @@ class _SettingsOptionWithIconState extends State<SettingsOptionWithIcon> {
         children: [
           Row(
             children: [
-              Icon(widget.leftIcon),
+              SvgPicture.asset(widget.leftIconPath,
+                  color: Theme.of(context).iconTheme.color),
               SizedBox(
                 width: Dimensions.of(context).insets.medium,
               ),
@@ -46,13 +48,13 @@ class _SettingsOptionWithIconState extends State<SettingsOptionWithIcon> {
 }
 
 class SettingsOptionWithToggle extends StatefulWidget {
-  final IconData leftIcon;
+  final String leftIconPath;
   final String optionText;
   final bool initialValue;
   final ValueChanged<bool> onToggleChanged;
 
   SettingsOptionWithToggle({
-    required this.leftIcon,
+    required this.leftIconPath,
     required this.optionText,
     required this.initialValue,
     required this.onToggleChanged,
@@ -81,7 +83,8 @@ class _SettingsOptionWithToggleState extends State<SettingsOptionWithToggle> {
         children: [
           Row(
             children: [
-              Icon(widget.leftIcon),
+              SvgPicture.asset(widget.leftIconPath,
+                  color: Theme.of(context).iconTheme.color),
               SizedBox(
                 width: Dimensions.of(context).insets.medium,
               ),

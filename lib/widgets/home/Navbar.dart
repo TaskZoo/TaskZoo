@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class CustomNavBar extends StatefulWidget {
   // icon sizes
@@ -31,19 +32,21 @@ class _CustomNavBarState extends State<CustomNavBar> {
                 children: [
                   IconButton(
                     color: Theme.of(context).indicatorColor,
-                    icon: const Icon(Icons.pie_chart_outline),
+                    icon: SvgPicture.asset("assets/custom_icons/stats.svg",
+                        color: Theme.of(context).iconTheme.color,
+                        semanticsLabel: 'Stats'),
                     onPressed: () {
                       widget.onTap(0);
                     },
-                    iconSize: widget.otherIconSize,
                   ),
                   IconButton(
                     color: Theme.of(context).indicatorColor,
-                    icon: const Icon(Icons.settings_outlined),
+                    icon: SvgPicture.asset("assets/custom_icons/settings.svg",
+                        color: Theme.of(context).iconTheme.color,
+                        semanticsLabel: 'Settings'),
                     onPressed: () {
                       widget.onTap(3);
                     },
-                    iconSize: widget.otherIconSize,
                   ),
                 ],
               ),

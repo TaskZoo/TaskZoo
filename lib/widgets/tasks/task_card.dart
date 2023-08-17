@@ -199,9 +199,9 @@ class _TaskCardState extends State<TaskCard> {
               },
             );
           },
-          child: const Icon(
-            Icons.edit,
-          ),
+          child: SvgPicture.asset("assets/custom_icons/pencil.svg",
+              color: Theme.of(context).iconTheme.color,
+              semanticsLabel: 'Pencil'),
         ),
         SizedBox(width: Dimensions.of(context).insets.medium),
         Container(
@@ -255,9 +255,9 @@ class _TaskCardState extends State<TaskCard> {
               },
             );
           },
-          child: const Icon(
-            Icons.delete,
-          ),
+          child: SvgPicture.asset("assets/custom_icons/trash.svg",
+              color: Theme.of(context).iconTheme.color,
+              semanticsLabel: 'Trash'),
         ),
       ],
     );
