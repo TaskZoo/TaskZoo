@@ -72,7 +72,7 @@ class OnboardingPage extends StatelessWidget {
               child: Container(
                 color: Theme.of(context).cardColor,
                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: content),
               ),

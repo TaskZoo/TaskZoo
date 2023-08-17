@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:dimensions_theme/dimensions_theme.dart';
 import 'package:flip_card/flip_card.dart';
+import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -88,11 +91,31 @@ class _FlippingTaskCardState extends State<FlippingTaskCard> {
     );
   }
 
+  late FlipCardController _controller;
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = FlipCardController();
+
+    // Initialize the timer to toggle the card every 2 seconds
+    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
+      _controller.toggleCard();
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FlipCard(
       flipOnTouch: false,
-      autoFlipDuration: const Duration(seconds: 2),
+      controller: _controller,
       fill: Fill.fillBack,
       direction: FlipDirection.HORIZONTAL,
       side: CardSide.FRONT,
