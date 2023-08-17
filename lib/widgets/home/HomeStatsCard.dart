@@ -32,8 +32,8 @@ class HomeStatsCard extends StatelessWidget {
             if (snapshot.hasData)
               AnimatedDigitWidget(
                 value: snapshot.data!,
-                textStyle:
-                    TextStyle(fontSize: 16, color: Theme.of(context).cardColor),
+                textStyle: TextStyle(
+                    fontSize: 16, color: Theme.of(context).indicatorColor),
                 duration: const Duration(milliseconds: 400),
               ),
           ],

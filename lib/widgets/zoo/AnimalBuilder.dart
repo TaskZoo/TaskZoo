@@ -156,8 +156,12 @@ class AnimalBuilderState extends State<AnimalBuilder> {
                   BorderRadius.circular(Dimensions.of(context).radii.medium),
               color: widget.backgroundColor,
             ),
-            child: SvgPicture.string(
-              svgData,
+            child: AnimatedSwitcher(
+              duration: Duration(milliseconds: 300),
+              child: SvgPicture.string(
+                svgData,
+                key: ValueKey<int>(_numShapes),
+              ),
             ),
           ),
         );
