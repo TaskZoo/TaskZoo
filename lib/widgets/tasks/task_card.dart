@@ -120,140 +120,157 @@ class _TaskCardState extends State<TaskCard> {
   }
 
   Widget _getCardFront(String schedule) {
-    return Opacity(
-      opacity: widget.task.isMeantForToday ? 1 : 0.5,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _getFrontTopInfo(),
-          Container(
-            height: 1.0,
-            color: Theme.of(context).dividerColor,
-          ),
-          _getFrontBottomInfo(schedule),
-        ],
+    return Container(
+      padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
+      decoration: BoxDecoration(
+        borderRadius:
+            BorderRadius.circular(Dimensions.of(context).radii.medium),
+        color: Theme.of(context).cardColor,
+      ),
+      child: Opacity(
+        opacity: widget.task.isMeantForToday ? 1 : 0.5,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _getFrontTopInfo(),
+            Container(
+              height: 1.0,
+              color: Theme.of(context).dividerColor,
+            ),
+            _getFrontBottomInfo(schedule),
+          ],
+        ),
       ),
     );
   }
 
   Widget _getCardBack(schedule) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        GestureDetector(
-          onTap: () {
-            showModalBottomSheet<Map<String, dynamic>>(
-              context: context,
-              backgroundColor: Colors.transparent,
-              builder: (BuildContext context) {
-                return EditTaskSheet(
-                  title: widget.task.title,
-                  tag: widget.task.tag,
-                  daysOfWeek: widget.task.daysOfWeek,
-                  biDaily: widget.task.biDaily,
-                  weekly: widget.task.weekly,
-                  monthly: widget.task.monthly,
-                  timesPerWeek: widget.task.timesPerWeek,
-                  timesPerMonth: widget.task.timesPerMonth,
-                  enableNotifications: widget.task.notificationsEnabled,
-                  notificationsDays: widget.task.notificationDays,
-                  selectedTime:
-                      parseTimeFromString(widget.task.notificationTime),
-                  onUpdateTask: (editedTaskData) {
-                    setState(() {
-                      widget.task.title = editedTaskData['title'];
-                      widget.task.tag = editedTaskData['tag'];
-                      widget.task.daysOfWeek = editedTaskData['daysOfWeek'];
-                      widget.task.biDaily = editedTaskData['biDaily'];
-                      widget.task.weekly = editedTaskData['weekly'];
-                      widget.task.monthly = editedTaskData['monthly'];
-                      widget.task.timesPerWeek = editedTaskData['timesPerWeek'];
-                      widget.task.timesPerMonth =
-                          editedTaskData['timesPerMonth'];
-                      widget.task.schedule = editedTaskData['schedule'];
-                      widget.task.notificationDays =
-                          editedTaskData['notificationsDays'];
-                      widget.task.notificationTime =
-                          editedTaskData['selectedTime'].toString();
-                      widget.task.notificationsEnabled =
-                          editedTaskData['notificationsEnabled'];
-                      deleteAllNotifications(widget.task.id, widget.service);
-                      scheduleNotifications(
-                          widget.task.notificationDays,
-                          widget.task.id,
-                          widget.task.notificationTime,
-                          widget.task.title,
-                          widget.service);
-                      isCompletedFalse(schedule);
-                      updateTaskSchema();
-                    });
-                  },
-                );
-              },
-            );
-          },
-          child: SvgPicture.asset("assets/custom_icons/pencil.svg",
-              color: Theme.of(context).iconTheme.color,
-              semanticsLabel: 'Pencil'),
-        ),
-        SizedBox(width: Dimensions.of(context).insets.medium),
-        Container(
-          width: 1.0,
-          height: 40,
-          color: Theme.of(context).dividerColor,
-        ),
-        SizedBox(width: Dimensions.of(context).insets.medium),
-        GestureDetector(
-          onTap: () {
-            // Show a dialog to confirm the deletion
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return Theme(
-                  data: Theme.of(context).copyWith(
-                      dialogBackgroundColor: Theme.of(context).cardColor),
-                  child: AlertDialog(
-                    title: const Text('Delete Task'),
-                    content: const Text(
-                        'Are you sure you want to delete this task?'),
-                    actions: <Widget>[
-                      TextButton(
-                        child: Text(
-                          'Cancel',
-                          style: TextStyle(
-                              color: Theme.of(context).indicatorColor),
+    return Container(
+      padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
+      decoration: BoxDecoration(
+        borderRadius:
+            BorderRadius.circular(Dimensions.of(context).radii.medium),
+        color: Theme.of(context).cardColor,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          GestureDetector(
+            onTap: () {
+              showModalBottomSheet<Map<String, dynamic>>(
+                context: context,
+                backgroundColor: Colors.transparent,
+                builder: (BuildContext context) {
+                  return EditTaskSheet(
+                    title: widget.task.title,
+                    tag: widget.task.tag,
+                    daysOfWeek: widget.task.daysOfWeek,
+                    biDaily: widget.task.biDaily,
+                    weekly: widget.task.weekly,
+                    monthly: widget.task.monthly,
+                    timesPerWeek: widget.task.timesPerWeek,
+                    timesPerMonth: widget.task.timesPerMonth,
+                    enableNotifications: widget.task.notificationsEnabled,
+                    notificationsDays: widget.task.notificationDays,
+                    selectedTime:
+                        parseTimeFromString(widget.task.notificationTime),
+                    onUpdateTask: (editedTaskData) {
+                      setState(() {
+                        widget.task.title = editedTaskData['title'];
+                        widget.task.tag = editedTaskData['tag'];
+                        widget.task.daysOfWeek = editedTaskData['daysOfWeek'];
+                        widget.task.biDaily = editedTaskData['biDaily'];
+                        widget.task.weekly = editedTaskData['weekly'];
+                        widget.task.monthly = editedTaskData['monthly'];
+                        widget.task.timesPerWeek =
+                            editedTaskData['timesPerWeek'];
+                        widget.task.timesPerMonth =
+                            editedTaskData['timesPerMonth'];
+                        widget.task.schedule = editedTaskData['schedule'];
+                        widget.task.notificationDays =
+                            editedTaskData['notificationsDays'];
+                        widget.task.notificationTime =
+                            editedTaskData['selectedTime'].toString();
+                        widget.task.notificationsEnabled =
+                            editedTaskData['notificationsEnabled'];
+                        deleteAllNotifications(widget.task.id, widget.service);
+                        scheduleNotifications(
+                            widget.task.notificationDays,
+                            widget.task.id,
+                            widget.task.notificationTime,
+                            widget.task.title,
+                            widget.service);
+                        isCompletedFalse(schedule);
+                        updateTaskSchema();
+                      });
+                    },
+                  );
+                },
+              );
+            },
+            child: SvgPicture.asset("assets/custom_icons/pencil.svg",
+                color: Theme.of(context).iconTheme.color,
+                semanticsLabel: 'Pencil'),
+          ),
+          SizedBox(width: Dimensions.of(context).insets.medium),
+          Container(
+            width: 1.0,
+            height: 40,
+            color: Theme.of(context).dividerColor,
+          ),
+          SizedBox(width: Dimensions.of(context).insets.medium),
+          GestureDetector(
+            onTap: () {
+              // Show a dialog to confirm the deletion
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Theme(
+                    data: Theme.of(context).copyWith(
+                        dialogBackgroundColor: Theme.of(context).cardColor),
+                    child: AlertDialog(
+                      title: const Text('Delete Task'),
+                      content: const Text(
+                          'Are you sure you want to delete this task?'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                                color: Theme.of(context).indicatorColor),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      TextButton(
-                        child: Text(
-                          'Delete',
-                          style: TextStyle(
-                              color: Theme.of(context).indicatorColor),
+                        TextButton(
+                          child: Text(
+                            'Delete',
+                            style: TextStyle(
+                                color: Theme.of(context).indicatorColor),
+                          ),
+                          onPressed: () {
+                            deleteTask();
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        onPressed: () {
-                          deleteTask();
-                          Navigator.of(context).pop();
-                        },
+                      ],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            Dimensions.of(context).radii.medium),
                       ),
-                    ],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          Dimensions.of(context).radii.medium),
                     ),
-                  ),
-                );
-              },
-            );
-          },
-          child: SvgPicture.asset("assets/custom_icons/trash.svg",
-              color: Theme.of(context).iconTheme.color,
-              semanticsLabel: 'Trash'),
-        ),
-      ],
+                  );
+                },
+              );
+            },
+            child: SvgPicture.asset("assets/custom_icons/trash.svg",
+                color: Theme.of(context).iconTheme.color,
+                semanticsLabel: 'Trash'),
+          ),
+        ],
+      ),
     );
   }
 
@@ -299,24 +316,8 @@ class _TaskCardState extends State<TaskCard> {
           fill: Fill.fillBack,
           direction: FlipDirection.HORIZONTAL,
           side: CardSide.FRONT,
-          front: Container(
-            padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
-            decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.circular(Dimensions.of(context).radii.medium),
-              color: Theme.of(context).cardColor,
-            ),
-            child: _getCardFront(schedule),
-          ),
-          back: Container(
-            padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
-            decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.circular(Dimensions.of(context).radii.medium),
-              color: Theme.of(context).cardColor,
-            ),
-            child: _getCardBack(schedule),
-          ),
+          front: _getCardFront(schedule),
+          back: _getCardBack(schedule),
         ));
   }
 
