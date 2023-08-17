@@ -3,12 +3,12 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class TutorialTaskCard extends StatefulWidget {
+class FlippingTaskCard extends StatefulWidget {
   @override
-  _TutorialTaskCardState createState() => _TutorialTaskCardState();
+  _FlippingTaskCardState createState() => _FlippingTaskCardState();
 }
 
-class _TutorialTaskCardState extends State<TutorialTaskCard> {
+class _FlippingTaskCardState extends State<FlippingTaskCard> {
   Widget _getFrontTopInfo() {
     return Padding(
       padding:
@@ -91,6 +91,8 @@ class _TutorialTaskCardState extends State<TutorialTaskCard> {
   @override
   Widget build(BuildContext context) {
     return FlipCard(
+      flipOnTouch: false,
+      autoFlipDuration: const Duration(seconds: 2),
       fill: Fill.fillBack,
       direction: FlipDirection.HORIZONTAL,
       side: CardSide.FRONT,
