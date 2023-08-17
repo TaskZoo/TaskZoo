@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:taskzoo/widgets/onboarding/custom_nav_bar.dart';
 import 'package:taskzoo/widgets/onboarding/onboarding_page.dart';
+import 'package:taskzoo/widgets/onboarding/tutorial_task_card.dart';
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -133,15 +134,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             "Hold down a task card to mark it as complete, or tap the task card to modify/delete the task.",
             style: TextStyle(fontSize: 20),
           ),
-          Container(
+          SizedBox(
+            height: Dimensions.of(context).insets.medium,
+          ),
+          Expanded(
+              child: Container(
             color: Theme.of(context).scaffoldBackgroundColor,
             padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [Text("Card front"), Text("Card back")],
+              children: [
+                AspectRatio(aspectRatio: 1 / 1, child: TutorialTaskCard()),
+                SizedBox(width: Dimensions.of(context).insets.medium),
+                AspectRatio(aspectRatio: 1 / 1, child: TutorialTaskCard()),
+              ],
             ),
-          )
+          ))
         ]);
 
     Widget onboarding_page_3 = OnboardingPage(
