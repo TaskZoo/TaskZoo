@@ -69,9 +69,7 @@ class _HomePageState extends State<HomePage>
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.all(Dimensions.of(context)
-                  .insets
-                  .medium), // Move the Padding widget here
+              padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
               child: ValueListenableBuilder<String>(
                 valueListenable: selectedSchedule,
                 builder: (context, value, child) {

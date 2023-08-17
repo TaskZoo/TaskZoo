@@ -53,12 +53,7 @@ class _TutorialTaskCardState extends State<TutorialTaskCard> {
                 color: Theme.of(context).iconTheme.color,
                 semanticsLabel: 'Clock'),
             SizedBox(width: Dimensions.of(context).insets.smaller),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("15 Hours Left"),
-              ],
-            ),
+            Text("5 Hours Left"),
           ],
         ));
   }
