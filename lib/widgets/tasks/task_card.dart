@@ -159,33 +159,19 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
           animation: Listenable.merge([_progressController, _pulseController]),
           builder: (context, child) {
             return Container(
-                padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                      Dimensions.of(context).radii.medium),
-                  color: Theme.of(context).cardColor,
-                  border: ProgressBorder.all(
-                    color: Theme.of(context).indicatorColor,
-                    width: _borderWidth.value, // Use animated border width
-                    progress: _progressController.value,
-                    strokeAlign: BorderSide.strokeAlignCenter,
-                  ),
-                ),
                 child: FlipCard(
-                  controller: _controller,
-                  onFlip: () {
-                    isFacingFront = !isFacingFront;
-                  },
-                  fill: Fill.fillBack,
-                  direction: FlipDirection.HORIZONTAL,
-                  side: CardSide.FRONT,
-                  front: _getCardFront(schedule),
-                  back: _getCardBack(schedule),
-                ));
+              controller: _controller,
+              onFlip: () {
+                isFacingFront = !isFacingFront;
+              },
+              fill: Fill.fillBack,
+              direction: FlipDirection.HORIZONTAL,
+              side: CardSide.FRONT,
+              front: _getCardFront(schedule),
+              back: _getCardBack(schedule),
+            ));
           },
         ));
-
-    //
   }
 
   Widget _getFrontTopInfo() {
@@ -252,19 +238,33 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
   }
 
   Widget _getCardFront(String schedule) {
-    return Opacity(
-      opacity: widget.task.isMeantForToday ? 1 : 0.5,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _getFrontTopInfo(),
-          Container(
-            height: 1.0,
-            color: Theme.of(context).dividerColor,
-          ),
-          _getFrontBottomInfo(schedule),
-        ],
+    return Container(
+      padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
+      decoration: BoxDecoration(
+        borderRadius:
+            BorderRadius.circular(Dimensions.of(context).radii.medium),
+        color: Theme.of(context).cardColor,
+        border: ProgressBorder.all(
+          color: Theme.of(context).indicatorColor,
+          width: _borderWidth.value, // Use animated border width
+          progress: _progressController.value,
+          strokeAlign: BorderSide.strokeAlignCenter,
+        ),
+      ),
+      child: Opacity(
+        opacity: widget.task.isMeantForToday ? 1 : 0.5,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _getFrontTopInfo(),
+            Container(
+              height: 1.0,
+              color: Theme.of(context).dividerColor,
+            ),
+            _getFrontBottomInfo(schedule),
+          ],
+        ),
       ),
     );
   }
