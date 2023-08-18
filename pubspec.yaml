@@ -57,6 +57,8 @@ dependencies:
   animated_text_kit: ^4.2.2
   progress_border: ^0.1.2
   number_precision: ^2.0.2+1
+  animated_splash_screen: ^1.3.0
+  page_transition: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -94,6 +96,7 @@ flutter:
     - assets/biomes_data/swamp/
     - assets/onboarding/
     - assets/custom_icons/
+    - assets/splash_screen_icon.png
     - assets/TaskCompletion.wav
 
   # An image asset can refer to one or more resolution-specific "variants", see
