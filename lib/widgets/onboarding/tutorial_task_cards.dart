@@ -183,7 +183,7 @@ class _HoldingTaskCardState extends State<HoldingTaskCard>
         _pulseController.forward();
 
         // Add a delay to set isComplete to false
-        Future.delayed(Duration(seconds: 1, milliseconds: 500), () {
+        Future.delayed(Duration(seconds: 2), () {
           setState(() {
             isComplete = false;
           });
@@ -194,7 +194,7 @@ class _HoldingTaskCardState extends State<HoldingTaskCard>
     Future.delayed(Duration(seconds: 1, milliseconds: 500), () {
       _progressController.animateTo(1);
 
-      _timer = Timer.periodic(Duration(seconds: 3), (Timer t) {
+      _timer = Timer.periodic(Duration(seconds: 6), (Timer t) {
         _progressController.animateTo(1);
       });
     });
