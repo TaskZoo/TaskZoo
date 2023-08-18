@@ -33,7 +33,6 @@ class AnimalBuilderState extends State<AnimalBuilder> {
   }
 
   @override
-  @override
   void initState() {
     super.initState();
     svgDataFuture = loadSvgData(widget.svgPath);
