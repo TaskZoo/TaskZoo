@@ -1,16 +1,13 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
 import 'package:taskzoo/misc/haptic_notifier.dart';
 import 'package:taskzoo/misc/sound_notifier.dart';
-import 'package:page_transition/page_transition.dart';
 
 import 'package:taskzoo/pages/home_page.dart';
 import 'package:taskzoo/pages/zoo_page.dart';
 import 'package:taskzoo/pages/stats_page.dart';
 import 'package:taskzoo/pages/settings_page.dart';
-import 'package:taskzoo/pages/custom_splash_screen.dart';
 
 import 'package:taskzoo/widgets/home/navbar.dart';
 
@@ -69,73 +66,67 @@ class MyApp extends StatelessWidget {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
 
     return MaterialApp(
-        title: 'TaskZoo',
+      title: 'TaskZoo',
 
-        // getting info for how to do ThemeData at https://stackoverflow.com/questions/60232070/how-to-implement-dark-mode-and-light-mode-in-flutter
-        theme: ThemeData(
-          // Light theme settings
-          brightness: Brightness.light,
+      // getting info for how to do ThemeData at https://stackoverflow.com/questions/60232070/how-to-implement-dark-mode-and-light-mode-in-flutter
+      theme: ThemeData(
+        // Light theme settings
+        brightness: Brightness.light,
 
-          // darker white that is background of all pages besides zoo
-          scaffoldBackgroundColor: const Color.fromARGB(255, 245, 245, 245),
-          // solid white that is color of any card
-          cardColor: Colors.white,
-          // black color for icons
-          indicatorColor: Colors.black,
-          // gray color used throughout the app
-          dividerColor: const Color.fromARGB(255, 123, 123, 123),
+        // darker white that is background of all pages besides zoo
+        scaffoldBackgroundColor: const Color.fromARGB(255, 245, 245, 245),
+        // solid white that is color of any card
+        cardColor: Colors.white,
+        // black color for icons
+        indicatorColor: Colors.black,
+        // gray color used throughout the app
+        dividerColor: const Color.fromARGB(255, 123, 123, 123),
 
-          // set theme data for icons
-          iconTheme: const IconThemeData(size: 24),
-          textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.black)),
+        // set theme data for icons
+        iconTheme: const IconThemeData(size: 24),
+        textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.black)),
 
-          extensions: [
-            // the Dimensions extension allows us to use inset/radii/border with like a theme
-            // for our use case, we define the medium value as below and use this throughout the app
-            Dimensions(
-                insets: InsetDimensions.fromMedium(15),
-                radii: RadiusDimensions.fromMedium(15),
-                borderWidths: BorderWidthDimensions.fromMedium(2)),
-          ],
-        ),
-        darkTheme: ThemeData(
-          // dark theme settings
-          brightness: Brightness.dark,
+        extensions: [
+          // the Dimensions extension allows us to use inset/radii/border with like a theme
+          // for our use case, we define the medium value as below and use this throughout the app
+          Dimensions(
+              insets: InsetDimensions.fromMedium(15),
+              radii: RadiusDimensions.fromMedium(15),
+              borderWidths: BorderWidthDimensions.fromMedium(2)),
+        ],
+      ),
 
-          textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.white)),
+      darkTheme: ThemeData(
+        // dark theme settings
+        brightness: Brightness.dark,
 
-          // solid black that is background of all pages besides zoo
-          scaffoldBackgroundColor: Colors.black,
-          // gray that is color of any card
-          cardColor: const Color.fromARGB(255, 35, 35, 35),
-          // black color for icons
-          indicatorColor: Colors.white,
-          // gray color used throughout the app
-          dividerColor: const Color.fromARGB(255, 123, 123, 123),
+        textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.white)),
 
-          // set theme data for icons
-          iconTheme: const IconThemeData(color: Colors.white, size: 24),
+        // solid black that is background of all pages besides zoo
+        scaffoldBackgroundColor: Colors.black,
+        // gray that is color of any card
+        cardColor: const Color.fromARGB(255, 35, 35, 35),
+        // black color for icons
+        indicatorColor: Colors.white,
+        // gray color used throughout the app
+        dividerColor: const Color.fromARGB(255, 123, 123, 123),
 
-          extensions: [
-            // the Dimensions extension allows us to use inset/radii/border with like a theme
-            // for our use case, we define the medium value as below and use this throughout the app
-            Dimensions(
-                insets: InsetDimensions.fromMedium(15),
-                radii: RadiusDimensions.fromMedium(15),
-                borderWidths: BorderWidthDimensions.fromMedium(2)),
-          ],
-        ),
-        themeMode: themeNotifier.currentTheme,
-        home: AnimatedSplashScreen(
-            duration: 3000,
-            splash:
-                CustomSplashScreen(imagePath: "assets/splash_screen_icon.png"),
-            nextScreen: MyHomePage(
-              title: "Home Page",
-            ),
-            splashTransition: SplashTransition.fadeTransition,
-            pageTransitionType: PageTransitionType.fade,
-            backgroundColor: Colors.blue));
+        // set theme data for icons
+        iconTheme: const IconThemeData(color: Colors.white, size: 24),
+
+        extensions: [
+          // the Dimensions extension allows us to use inset/radii/border with like a theme
+          // for our use case, we define the medium value as below and use this throughout the app
+          Dimensions(
+              insets: InsetDimensions.fromMedium(15),
+              radii: RadiusDimensions.fromMedium(15),
+              borderWidths: BorderWidthDimensions.fromMedium(2)),
+        ],
+      ),
+
+      themeMode: themeNotifier.currentTheme,
+      home: MyHomePage(title: 'TaskZoo Task Page'),
+    );
   }
 }
 

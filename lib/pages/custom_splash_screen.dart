@@ -16,6 +16,8 @@ class _CustomSplashScreenState extends State<CustomSplashScreen> {
         child: Center(
       child: Image.asset(
         widget.imagePath,
+        width: 500,
+        height: 500,
       ),
     ));
   }
