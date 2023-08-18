@@ -84,6 +84,7 @@ class MyApp extends StatelessWidget {
 
         // set theme data for icons
         iconTheme: const IconThemeData(size: 24),
+        textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.black)),
 
         extensions: [
           // the Dimensions extension allows us to use inset/radii/border with like a theme
@@ -98,6 +99,8 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         // dark theme settings
         brightness: Brightness.dark,
+
+        textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.white)),
 
         // solid black that is background of all pages besides zoo
         scaffoldBackgroundColor: Colors.black,
@@ -176,7 +179,10 @@ class _MyHomePageState extends State<MyHomePage> {
     soundNotifier = Provider.of<SoundNotifer>(context, listen: false);
 
     final pages = [
-      HomePage(service: widget.service),
+      HomePage(
+        service: widget.service,
+        themeNotifier: themeNotifier,
+      ),
       ChangeNotifierProvider(
         create: (context) => ZooNotifier(),
         child: ZooPage(

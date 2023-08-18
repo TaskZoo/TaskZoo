@@ -13,16 +13,6 @@ class StatsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dailyPercentCompletedTestData = {
-      "Mon": 0.3,
-      "Tue": 0.1,
-      "Wed": 0.0,
-      "Thu": 0.5,
-      "Fri": 1.0,
-      "Sat": 0.6,
-      "Sun": 0.1,
-    };
-
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -66,6 +56,7 @@ class StatsPage extends StatelessWidget {
                   } else {
                     Map<String, double> completionData = snapshot.data ?? {};
                     //Test to see if the null case needs to considered.
+                    //print(completionData);
                     return Expanded(
                       child: DailyPercentCompletedCard(
                         data: completionData,

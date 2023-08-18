@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
+import 'package:taskzoo/misc/theme_notifier.dart';
 
 import 'package:taskzoo/widgets/home/Appbar.dart';
 import 'package:taskzoo/widgets/home/HomeStatsCard.dart';
@@ -12,9 +14,11 @@ import 'package:taskzoo/widgets/isar_service.dart';
 
 class HomePage extends StatefulWidget {
   final IsarService service;
+  final ThemeNotifier themeNotifier;
   HomePage({
     Key? key,
     required this.service,
+    required this.themeNotifier,
   }) : super(key: key);
 
   @override
@@ -66,6 +70,8 @@ class _HomePageState extends State<HomePage>
             countCompletedTasks: widget.service.countCompletedTasks,
             selectedSchedule: selectedSchedule,
             selectedTags: selectedTags,
+            themeNotifier: widget.themeNotifier,
+            service: widget.service,
           ),
           Expanded(
             child: Padding(

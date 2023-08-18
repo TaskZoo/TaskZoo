@@ -13,4 +13,6 @@ class ThemeNotifier with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  bool isDarkTheme() => _currentTheme == ThemeMode.dark;
 }

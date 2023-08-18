@@ -171,8 +171,9 @@ class IsarService {
       DailyCompletionEntry dailycompletion) async {
     final isar = await db;
     //Return type int -> id of the inserted object
-    isar.writeTxnSync<int>(
-        () => isar.dailyCompletionEntrys.putSync(dailycompletion));
+    await isar.writeTxn<void>(() async {
+      await isar.dailyCompletionEntrys.put(dailycompletion);
+    });
   }
 
   Stream<double> percentTasksCompleted() async* {
@@ -277,12 +278,16 @@ class IsarService {
     return completionPercent;
   }
 
-  List<int> getEncodedDatesForPast7Days() {
+  List<int> getEncodedDatesForPastWeek() {
     DateTime now = DateTime.now().toLocal();
+    DateTime previousMonday = now.subtract(Duration(days: now.weekday - 1));
+    DateTime nextSunday = previousMonday.add(Duration(days: 6));
     List<int> encodedDates = [];
 
-    for (int i = 0; i < 7; i++) {
-      DateTime currentDate = now.subtract(Duration(days: i));
+    for (DateTime currentDate = previousMonday;
+        currentDate.isBefore(nextSunday) ||
+            currentDate.isAtSameMomentAs(nextSunday);
+        currentDate = currentDate.add(Duration(days: 1))) {
       int encodedDate = encodeDate(currentDate);
       encodedDates.add(encodedDate);
     }
@@ -290,16 +295,20 @@ class IsarService {
     return encodedDates;
   }
 
-  List<String> getDecodedDatesForPast7Days() {
+  List<String> getDecodedDatesForPastWeek() {
     DateTime now = DateTime.now().toLocal();
-    List<String> encodedDates = [];
+    DateTime previousMonday = now.subtract(Duration(days: now.weekday - 1));
+    DateTime nextSunday = previousMonday.add(Duration(days: 6));
+    List<String> decodedDates = [];
 
-    for (int i = 0; i < 7; i++) {
-      DateTime currentDate = now.subtract(Duration(days: i));
-      encodedDates.add(currentDate.toIso8601String());
+    for (DateTime currentDate = previousMonday;
+        currentDate.isBefore(nextSunday) ||
+            currentDate.isAtSameMomentAs(nextSunday);
+        currentDate = currentDate.add(Duration(days: 1))) {
+      decodedDates.add(currentDate.toIso8601String());
     }
 
-    return encodedDates;
+    return decodedDates;
   }
 
   String getWeekday(String isoString) {
@@ -334,8 +343,8 @@ class IsarService {
 
 // Function to compute completion percentage for past 7 days
   Stream<Map<String, double>> getCompletionPercentForPast7Days() async* {
-    List<int> encodedDates = getEncodedDatesForPast7Days();
-    List<String> decodedDates = getDecodedDatesForPast7Days();
+    List<int> encodedDates = getEncodedDatesForPastWeek();
+    List<String> decodedDates = getDecodedDatesForPastWeek();
 
     Map<String, double> completionData = {};
 

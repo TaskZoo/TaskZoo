@@ -185,7 +185,57 @@ class _SettingsPageState extends State<SettingsPage> {
               leftIconPath: "assets/custom_icons/trash.svg",
               optionText: 'Clean Slate Protocol',
               rightActionIcon: Icons.chevron_right,
-              onActionTap: () => cleanSlateProtocol(),
+              onActionTap: () => showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Theme(
+                    data: Theme.of(context).copyWith(
+                        dialogBackgroundColor: Theme.of(context).cardColor),
+                    child: AlertDialog(
+                      title: const Text('Delete Task'),
+                      content: const Text(
+                          'Are you sure you want to clear all progress? This includes animal progress.'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                                color: Theme.of(context).indicatorColor),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color:
+                                    Colors.red), // Set the border color to red
+                            borderRadius: BorderRadius.circular(
+                                8), // Adjust the border radius as needed
+                          ),
+                          child: TextButton(
+                            child: Text(
+                              'Reset Progress',
+                              style: TextStyle(
+                                color: Colors.red, // Set the text color to red
+                              ),
+                            ),
+                            onPressed: () {
+                              cleanSlateProtocol();
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ),
+                      ],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            Dimensions.of(context).radii.medium),
+                      ),
+                    ),
+                  );
+                },
+              ),
             )
           ]),
         ));

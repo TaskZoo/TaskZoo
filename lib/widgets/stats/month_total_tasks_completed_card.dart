@@ -22,15 +22,18 @@ class MonthTotalTasksCompletedCard extends StatelessWidget {
         data.reduce((curr, next) => curr > next ? curr : next).toDouble() + 1;
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(Dimensions.of(context).insets.medium, 0, Dimensions.of(context).insets.medium, 0),
+      padding: EdgeInsets.fromLTRB(Dimensions.of(context).insets.medium, 0,
+          Dimensions.of(context).insets.medium, 0),
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(Dimensions.of(context).radii.medium),
+          borderRadius:
+              BorderRadius.circular(Dimensions.of(context).radii.medium),
           color: Theme.of(context).cardColor,
         ),
         child: ClipRRect(
-              borderRadius: BorderRadius.circular(Dimensions.of(context).radii.medium),
+          borderRadius:
+              BorderRadius.circular(Dimensions.of(context).radii.medium),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

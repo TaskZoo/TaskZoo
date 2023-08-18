@@ -13,22 +13,24 @@ class DailyPercentCompletedCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(Dimensions.of(context).insets.medium, 0, Dimensions.of(context).insets.medium, 0),
+      padding: EdgeInsets.fromLTRB(Dimensions.of(context).insets.medium, 0,
+          Dimensions.of(context).insets.medium, 0),
       child: Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(Dimensions.of(context).radii.medium),
+          borderRadius:
+              BorderRadius.circular(Dimensions.of(context).radii.medium),
           color: Theme.of(context).cardColor,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Percent Tasks Completed',
+              'Weekly Productivity',
               style: TextStyle(
                 fontSize: 16,
-                  color: Theme.of(context).indicatorColor,
+                color: Theme.of(context).indicatorColor,
               ),
               textAlign: TextAlign.center,
             ),
