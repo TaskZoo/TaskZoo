@@ -162,11 +162,11 @@ class _HoldingTaskCardState extends State<HoldingTaskCard>
     );
 
     _pulseController = AnimationController(
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 250),
       vsync: this,
     );
 
-    _borderWidth = Tween<double>(begin: 2, end: 4).animate(_pulseController)
+    _borderWidth = Tween<double>(begin: 2, end: 2).animate(_pulseController)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           _progressController.reset();
@@ -207,10 +207,10 @@ class _HoldingTaskCardState extends State<HoldingTaskCard>
             decoration: BoxDecoration(
               borderRadius:
                   BorderRadius.circular(Dimensions.of(context).radii.medium),
-              color: Colors.blue,
+              color: Theme.of(context).cardColor,
               border: ProgressBorder.all(
-                color: Colors.black,
-                width: _borderWidth.value, // Use animated border width
+                color: Theme.of(context).indicatorColor,
+                width: _borderWidth.value,
                 progress: _progressController.value,
                 strokeAlign: BorderSide.strokeAlignCenter,
               ),
