@@ -152,6 +152,9 @@ class _HoldingTaskCardState extends State<HoldingTaskCard>
   late AnimationController _progressController;
   late AnimationController _pulseController;
   late Animation<double> _borderWidth;
+  late Timer _timer;
+
+  bool isComplete = false;
 
   @override
   void initState() {
@@ -175,10 +178,25 @@ class _HoldingTaskCardState extends State<HoldingTaskCard>
       });
 
     _progressController.addListener(() {
-      if (_progressController.value == 1.0) {
-        print("Task complete");
+      if (_progressController.value == 1.0 && !isComplete) {
+        isComplete = true;
         _pulseController.forward();
+
+        // Add a delay to set isComplete to false
+        Future.delayed(Duration(seconds: 1, milliseconds: 500), () {
+          setState(() {
+            isComplete = false;
+          });
+        });
       }
+    });
+
+    Future.delayed(Duration(seconds: 1, milliseconds: 500), () {
+      _progressController.animateTo(1);
+
+      _timer = Timer.periodic(Duration(seconds: 3), (Timer t) {
+        _progressController.animateTo(1);
+      });
     });
   }
 
@@ -186,7 +204,68 @@ class _HoldingTaskCardState extends State<HoldingTaskCard>
   void dispose() {
     _progressController.dispose();
     _pulseController.dispose();
+    _timer.cancel(); // Cancel the timer
     super.dispose();
+  }
+
+  Widget _getFrontTopInfo() {
+    return Padding(
+      padding:
+          EdgeInsets.symmetric(horizontal: Dimensions.of(context).insets.small),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "10 Pushups",
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+            ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            "Fitness",
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _getFrontBottomInfo(bool isComplete) {
+    // if the task is completed the user gets a checkmark
+    if (isComplete) {
+      return Center(
+        child: SvgPicture.asset("assets/custom_icons/check.svg",
+            color: Theme.of(context).iconTheme.color, semanticsLabel: 'Check'),
+      );
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SvgPicture.asset("assets/custom_icons/clock.svg",
+            color: Theme.of(context).iconTheme.color, semanticsLabel: 'Clock'),
+        SizedBox(width: Dimensions.of(context).insets.smaller),
+        Text("15 Hours Left"),
+      ],
+    );
+  }
+
+  Widget _getCardFront(bool isComplete) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _getFrontTopInfo(),
+        Container(
+          height: 1.0,
+          color: Theme.of(context).dividerColor,
+        ),
+        _getFrontBottomInfo(isComplete),
+      ],
+    );
   }
 
   @override
@@ -204,6 +283,7 @@ class _HoldingTaskCardState extends State<HoldingTaskCard>
         animation: Listenable.merge([_progressController, _pulseController]),
         builder: (context, child) {
           return Container(
+            padding: EdgeInsets.all(Dimensions.of(context).insets.small),
             decoration: BoxDecoration(
               borderRadius:
                   BorderRadius.circular(Dimensions.of(context).radii.medium),
@@ -215,6 +295,7 @@ class _HoldingTaskCardState extends State<HoldingTaskCard>
                 strokeAlign: BorderSide.strokeAlignCenter,
               ),
             ),
+            child: _getCardFront(isComplete),
           );
         },
       ),
