@@ -39,7 +39,21 @@ const DailyCompletionEntrySchema = CollectionSchema(
   deserialize: _dailyCompletionEntryDeserialize,
   deserializeProp: _dailyCompletionEntryDeserializeProp,
   idName: r'id',
-  indexes: {},
+  indexes: {
+    r'date': IndexSchema(
+      id: -7552997827385218417,
+      name: r'date',
+      unique: false,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'date',
+          type: IndexType.hash,
+          caseSensitive: true,
+        )
+      ],
+    )
+  },
   links: {},
   embeddedSchemas: {},
   getId: _dailyCompletionEntryGetId,
@@ -193,6 +207,51 @@ extension DailyCompletionEntryQueryWhere
         upper: upperId,
         includeUpper: includeUpper,
       ));
+    });
+  }
+
+  QueryBuilder<DailyCompletionEntry, DailyCompletionEntry, QAfterWhereClause>
+      dateEqualTo(String date) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.equalTo(
+        indexName: r'date',
+        value: [date],
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCompletionEntry, DailyCompletionEntry, QAfterWhereClause>
+      dateNotEqualTo(String date) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'date',
+              lower: [],
+              upper: [date],
+              includeUpper: false,
+            ))
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'date',
+              lower: [date],
+              includeLower: false,
+              upper: [],
+            ));
+      } else {
+        return query
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'date',
+              lower: [date],
+              includeLower: false,
+              upper: [],
+            ))
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'date',
+              lower: [],
+              upper: [date],
+              includeUpper: false,
+            ));
+      }
     });
   }
 }

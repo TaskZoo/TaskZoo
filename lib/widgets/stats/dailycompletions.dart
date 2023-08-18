@@ -7,6 +7,7 @@ class DailyCompletionEntry {
   @Index()
   Id id;
 
+  @Index()
   String date;
 
   int completionCount;

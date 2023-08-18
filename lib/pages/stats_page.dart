@@ -56,7 +56,7 @@ class StatsPage extends StatelessWidget {
                   } else {
                     Map<String, double> completionData = snapshot.data ?? {};
                     //Test to see if the null case needs to considered.
-                    //print(completionData);
+                    print(completionData);
                     return Expanded(
                       child: DailyPercentCompletedCard(
                         data: completionData,

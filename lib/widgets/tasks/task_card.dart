@@ -110,6 +110,14 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
     });
   }
 
+  void flipCardIfNeeded() {
+    if ((_controller.state != null && _controller.state!.isFront ||
+        !isFacingFront)) {
+      isFacingFront = true;
+      _controller.toggleCardWithoutAnimation();
+    }
+  }
+
   @override
   void dispose() {
     _progressController.dispose();
@@ -141,6 +149,8 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
 
     //Handles Weekly/Monthly completions
     _setCompletionStatus(schedule);
+
+    // flipCardIfNeeded();
 
     return GestureDetector(
         onLongPressStart: (details) {
@@ -502,7 +512,7 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
       if (widget.task.isStreakContinued && widget.task.isCompleted) {
         if (!completedDates.contains(today)) {
           completedDates.add(today);
-          print("added");
+          // print("added");
           widget.task.last30DaysDates = _getLast30DaysDates();
           widget.task.completionCount30days =
               _getCompletionCount(widget.task.last30DaysDates);
@@ -534,7 +544,7 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
         if (!completedDates.contains(today)) {
           if (widget.task.isMeantForToday) {
             completedDates.add(today);
-            print("added3");
+            // print("added3");
             widget.task.last30DaysDates = _getLast30DaysDates();
             widget.task.completionCount30days =
                 _getCompletionCount(widget.task.last30DaysDates);
@@ -609,13 +619,12 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
       widget.task.isStreakContinued = now.isBefore(nextCompletionDate);
 
       if (widget.task.isStreakContinued && widget.task.isCompleted) {
-        print("completedDates: $completedDates");
         if (!completedDates.contains(today)) {
-          print("We in here: $completedDates");
+          // print("We in here: $completedDates");
           _getCompletionCount(widget.task.last30DaysDates);
           widget.task.currentCycleCompletions++;
-          print("cycle comps${widget.task.currentCycleCompletions}");
-          print("times per month${widget.task.timesPerMonth}");
+          // print("cycle comps${widget.task.currentCycleCompletions}");
+          // print("times per month${widget.task.timesPerMonth}");
           updateTaskSchema();
           if (widget.task.currentCycleCompletions < widget.task.timesPerMonth) {
             return;
@@ -769,8 +778,36 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
 
   void updatePiecesInformation() async {
     // Get the current value of totalAnimalPieces from the box
-    incrementTotalCollectedPieces();
-    widget.task.piecesObtained += 1;
+    String schedule = determineFrequency(
+      widget.task.daysOfWeek,
+      widget.task.biDaily,
+      widget.task.weekly,
+      widget.task.monthly,
+    );
+    //     if (daysOfWeek.any((day) => day == true)) {
+    //   return 'custom';
+    // } else if (weekly) {
+    //   return 'weekly';
+    // } else if (monthly) {
+    //   return 'monthly';
+    // } else if (biDaily) {
+    //   return 'biDaily';
+    // } else {
+    //   return 'daily';
+    int increment = 1;
+
+    if (schedule == 'custom') {
+      increment = 2;
+    } else if (schedule == 'weekly') {
+      increment = 2;
+    } else if (schedule == 'monthly') {
+      increment = 3;
+    } else if (schedule == 'daily') {
+      increment = 1;
+    }
+
+    widget.task.piecesObtained += increment;
+    incrementTotalCollectedPieces(increment);
   }
 
   void deleteTask() async {
@@ -805,10 +842,10 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
     return todayAtMidnight;
   }
 
-  Future<void> incrementTotalCollectedPieces() async {
+  Future<void> incrementTotalCollectedPieces(int pieceChange) async {
     int currentTotalCollectedPieces =
         await widget.service.getPreference("totalCollectedPieces");
-    int newTotalCollectedPieces = currentTotalCollectedPieces + 1;
+    int newTotalCollectedPieces = currentTotalCollectedPieces + pieceChange;
     widget.service
         .setPreference("totalCollectedPieces", newTotalCollectedPieces);
   }

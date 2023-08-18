@@ -10,7 +10,7 @@ class OnboardingPage extends StatelessWidget {
   final String animalSvgPath;
   final List<Widget> content;
 
-  OnboardingPage({
+  const OnboardingPage({
     required this.title,
     required this.topBackgroundColor,
     required this.animalSvgPath,

@@ -114,6 +114,17 @@ class IsarService {
     }
   }
 
+  Stream<int> countTaskNotCompleted(
+      String schedule, List<String> selectedTags) async* {
+    // Watch for changes in the tasks
+    await for (var tasks
+        in filterTasksByScheduleAndSelectedTags(schedule, selectedTags)) {
+      // Calculate the count of not completed tasks
+      int count = tasks.where((task) => !task.isCompleted).length;
+      yield count; // Yield the updated count
+    }
+  }
+
   Stream<int> countCompletedTasks(
       String schedule, List<String> selectedTags) async* {
     // Listen to the stream of tasks obtained from getAllTasks()
@@ -278,21 +289,29 @@ class IsarService {
     return completionPercent;
   }
 
-  List<int> getEncodedDatesForPastWeek() {
+  List<String> getEncodedDatesForPastWeek() {
     DateTime now = DateTime.now().toLocal();
     DateTime previousMonday = now.subtract(Duration(days: now.weekday - 1));
     DateTime nextSunday = previousMonday.add(Duration(days: 6));
-    List<int> encodedDates = [];
+    List<String> dateStrings = [];
 
     for (DateTime currentDate = previousMonday;
         currentDate.isBefore(nextSunday) ||
             currentDate.isAtSameMomentAs(nextSunday);
         currentDate = currentDate.add(Duration(days: 1))) {
-      int encodedDate = encodeDate(currentDate);
-      encodedDates.add(encodedDate);
+      DateTime dateAtMidnight = DateTime(
+        currentDate.year,
+        currentDate.month,
+        currentDate.day,
+        0, // Hour
+        0, // Minute
+        0, // Second
+      );
+      String dateString = dateAtMidnight.toIso8601String();
+      dateStrings.add(dateString);
     }
 
-    return encodedDates;
+    return dateStrings;
   }
 
   List<String> getDecodedDatesForPastWeek() {
@@ -343,7 +362,7 @@ class IsarService {
 
 // Function to compute completion percentage for past 7 days
   Stream<Map<String, double>> getCompletionPercentForPast7Days() async* {
-    List<int> encodedDates = getEncodedDatesForPastWeek();
+    List<String> encodedDates = getEncodedDatesForPastWeek();
     List<String> decodedDates = getDecodedDatesForPastWeek();
 
     Map<String, double> completionData = {};
@@ -351,10 +370,10 @@ class IsarService {
     final isar = await db;
 
     int i = 0;
-    for (int encodedDate in encodedDates) {
+    for (String encodedDate in encodedDates) {
       DailyCompletionEntry? entry = await isar.dailyCompletionEntrys
           .where()
-          .idEqualTo(encodedDate - 1)
+          .dateEqualTo(encodedDate)
           .findFirst();
 
       //String key = formatDateToMonthDay(decodedDates[i]);

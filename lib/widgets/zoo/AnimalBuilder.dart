@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
 
 import 'package:taskzoo/widgets/isar_service.dart';
@@ -64,13 +63,17 @@ class AnimalBuilderState extends State<AnimalBuilder> {
   }
 
   void addShape() async {
+    String svgData = await svgDataFuture;
+    int totalSVGCount = countPathsInSvg(svgData);
+
     int currentTotalCollectedPieces =
         await widget.service.getPreference("totalCollectedPieces");
-    if (currentTotalCollectedPieces > 0) {
+    if (currentTotalCollectedPieces > 0 && totalSVGCount > _numShapes) {
       setState(() {
         _numShapes += 5;
       });
       decrementTotalCollectedPieces();
+
       AnimalPieces animalUpdate = AnimalPieces(
           id: getSvgPathId(), pieces: _numShapes, animalName: widget.svgPath);
       widget.service.saveAnimalPieces(animalUpdate);
