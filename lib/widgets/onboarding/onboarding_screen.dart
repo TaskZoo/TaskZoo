@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:taskzoo/widgets/onboarding/custom_nav_bar.dart';
 import 'package:taskzoo/widgets/onboarding/onboarding_page.dart';
 import 'package:taskzoo/widgets/onboarding/tutorial_task_cards.dart';
+import 'package:taskzoo/widgets/onboarding/tutorial_animal_builder.dart';
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -210,10 +211,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               style: TextStyle(fontSize: 20),
             ),
           ),
-          SvgPicture.asset(
-            "assets/onboarding/rat.svg",
-            height: 175,
-          ),
+          TutorialAnimalBuilder(svgPath: "assets/onboarding/rat.svg"),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: Dimensions.of(context).insets.medium),
