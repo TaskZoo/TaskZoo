@@ -73,11 +73,11 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
     );
 
     _pulseController = AnimationController(
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 250),
       vsync: this,
     );
 
-    _borderWidth = Tween<double>(begin: 1, end: 4).animate(_pulseController)
+    _borderWidth = Tween<double>(begin: 2, end: 2).animate(_pulseController)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           _progressController.reset();
