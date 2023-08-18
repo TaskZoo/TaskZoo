@@ -82,19 +82,12 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
         if (status == AnimationStatus.completed) {
           _progressController.reset();
           _pulseController.reverse();
-          print("MANIPS COMPLETE");
-          print(_progressController.value);
-
-          print("MANIPS COMPLETEdddddd");
         }
       });
 
     _progressController.addListener(() {
       if (_progressController.value == 1.0) {
-        print(_progressController.value);
         if (!widget.task.isCompleted && widget.task.isMeantForToday) {
-          print("Task complete");
-
           setState(() {
             String schedule = determineFrequency(
               widget.task.daysOfWeek,
@@ -150,13 +143,12 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
     _setCompletionStatus(schedule);
 
     return GestureDetector(
-        onDoubleTap: () {
-          _controller.toggleCard();
-        },
         onLongPressStart: (details) {
-          _progressController.animateTo(1);
-          print("starting press");
-          print(_progressController.value);
+          if (!widget.task.isCompleted &&
+              widget.task.isMeantForToday &&
+              isFacingFront) {
+            _progressController.animateTo(1);
+          }
         },
         onLongPressEnd: (details) {
           if (!_progressController.isCompleted) {
@@ -173,13 +165,17 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
                       Dimensions.of(context).radii.medium),
                   color: Theme.of(context).cardColor,
                   border: ProgressBorder.all(
-                    color: Colors.black,
+                    color: Theme.of(context).indicatorColor,
                     width: _borderWidth.value, // Use animated border width
                     progress: _progressController.value,
                     strokeAlign: BorderSide.strokeAlignCenter,
                   ),
                 ),
                 child: FlipCard(
+                  controller: _controller,
+                  onFlip: () {
+                    isFacingFront = !isFacingFront;
+                  },
                   fill: Fill.fillBack,
                   direction: FlipDirection.HORIZONTAL,
                   side: CardSide.FRONT,
