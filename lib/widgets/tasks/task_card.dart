@@ -1,9 +1,11 @@
 import 'dart:collection';
 import 'dart:math';
+import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
 import 'package:flutter/services.dart';
+import 'package:progress_border/progress_border.dart';
 
 import 'package:taskzoo/widgets/isar_service.dart';
 import 'package:taskzoo/widgets/notifications/notification_service.dart';
@@ -28,11 +30,18 @@ class TaskCard extends StatefulWidget {
   _TaskCardState createState() => _TaskCardState();
 }
 
-class _TaskCardState extends State<TaskCard> {
+class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
   late DateTime previousDate;
   late DateTime nextCompletionDate;
   late HashSet<DateTime> completedDates;
   final SoundPlayer player = SoundPlayer();
+
+  late bool isFacingFront;
+  late FlipCardController _controller;
+
+  late AnimationController _progressController;
+  late AnimationController _pulseController;
+  late Animation<double> _borderWidth;
 
   //Make modifications to previous date when storing data persistently
   @override
@@ -54,6 +63,133 @@ class _TaskCardState extends State<TaskCard> {
     widget.task.last30DaysDates = _getLast30DaysDates();
     widget.task.completionCount30days =
         _getCompletionCount(widget.task.last30DaysDates);
+
+    _controller = FlipCardController();
+    isFacingFront = true;
+
+    _progressController = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+
+    _pulseController = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+
+    _borderWidth = Tween<double>(begin: 1, end: 4).animate(_pulseController)
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          _progressController.reset();
+          _pulseController.reverse();
+          print("MANIPS COMPLETE");
+          print(_progressController.value);
+
+          print("MANIPS COMPLETEdddddd");
+        }
+      });
+
+    _progressController.addListener(() {
+      if (_progressController.value == 1.0) {
+        print(_progressController.value);
+        if (!widget.task.isCompleted && widget.task.isMeantForToday) {
+          print("Task complete");
+
+          setState(() {
+            String schedule = determineFrequency(
+              widget.task.daysOfWeek,
+              widget.task.biDaily,
+              widget.task.weekly,
+              widget.task.monthly,
+            );
+
+            updatePiecesInformation();
+            widget.task.isCompleted = true;
+            hapticFeedback();
+            completionSound();
+            addCompletionCountEntry();
+            _streakAndStatsHandler(schedule);
+          });
+        }
+
+        _pulseController.forward();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _progressController.dispose();
+    _pulseController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    String schedule = determineFrequency(
+      widget.task.daysOfWeek,
+      widget.task.biDaily,
+      widget.task.weekly,
+      widget.task.monthly,
+    );
+
+    String monthlyOrWeekly = (schedule == "monthly") ? "month" : "week";
+
+    //Set notifications
+    scheduleNotifications(widget.task.notificationDays, widget.task.id,
+        widget.task.notificationTime, widget.task.title, widget.service);
+    //printAllScheduledNotifications();
+
+    //Reset completion
+    _completionResetHandler();
+
+    //Handle setting and resetting stats based on the schedule
+    _streakAndStatsHandler(schedule);
+
+    //Handles Weekly/Monthly completions
+    _setCompletionStatus(schedule);
+
+    return GestureDetector(
+        onDoubleTap: () {
+          _controller.toggleCard();
+        },
+        onLongPressStart: (details) {
+          _progressController.animateTo(1);
+          print("starting press");
+          print(_progressController.value);
+        },
+        onLongPressEnd: (details) {
+          if (!_progressController.isCompleted) {
+            _progressController.animateBack(0);
+          }
+        },
+        child: AnimatedBuilder(
+          animation: Listenable.merge([_progressController, _pulseController]),
+          builder: (context, child) {
+            return Container(
+                padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                      Dimensions.of(context).radii.medium),
+                  color: Theme.of(context).cardColor,
+                  border: ProgressBorder.all(
+                    color: Colors.black,
+                    width: _borderWidth.value, // Use animated border width
+                    progress: _progressController.value,
+                    strokeAlign: BorderSide.strokeAlignCenter,
+                  ),
+                ),
+                child: FlipCard(
+                  fill: Fill.fillBack,
+                  direction: FlipDirection.HORIZONTAL,
+                  side: CardSide.FRONT,
+                  front: _getCardFront(schedule),
+                  back: _getCardBack(schedule),
+                ));
+          },
+        ));
+
+    //
   }
 
   Widget _getFrontTopInfo() {
@@ -120,34 +256,25 @@ class _TaskCardState extends State<TaskCard> {
   }
 
   Widget _getCardFront(String schedule) {
-    return Container(
-      padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
-      decoration: BoxDecoration(
-        borderRadius:
-            BorderRadius.circular(Dimensions.of(context).radii.medium),
-        color: Theme.of(context).cardColor,
-      ),
-      child: Opacity(
-        opacity: widget.task.isMeantForToday ? 1 : 0.5,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _getFrontTopInfo(),
-            Container(
-              height: 1.0,
-              color: Theme.of(context).dividerColor,
-            ),
-            _getFrontBottomInfo(schedule),
-          ],
-        ),
+    return Opacity(
+      opacity: widget.task.isMeantForToday ? 1 : 0.5,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _getFrontTopInfo(),
+          Container(
+            height: 1.0,
+            color: Theme.of(context).dividerColor,
+          ),
+          _getFrontBottomInfo(schedule),
+        ],
       ),
     );
   }
 
   Widget _getCardBack(schedule) {
     return Container(
-      padding: EdgeInsets.all(Dimensions.of(context).insets.medium),
       decoration: BoxDecoration(
         borderRadius:
             BorderRadius.circular(Dimensions.of(context).radii.medium),
@@ -272,53 +399,6 @@ class _TaskCardState extends State<TaskCard> {
         ],
       ),
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    String schedule = determineFrequency(
-      widget.task.daysOfWeek,
-      widget.task.biDaily,
-      widget.task.weekly,
-      widget.task.monthly,
-    );
-
-    String monthlyOrWeekly = (schedule == "monthly") ? "month" : "week";
-
-    //Set notifications
-    scheduleNotifications(widget.task.notificationDays, widget.task.id,
-        widget.task.notificationTime, widget.task.title, widget.service);
-    //printAllScheduledNotifications();
-
-    //Reset completion
-    _completionResetHandler();
-
-    //Handle setting and resetting stats based on the schedule
-    _streakAndStatsHandler(schedule);
-
-    //Handles Weekly/Monthly completions
-    _setCompletionStatus(schedule);
-
-    return GestureDetector(
-        onLongPress: !widget.task.isCompleted && widget.task.isMeantForToday
-            ? () {
-                setState(() {
-                  updatePiecesInformation();
-                  widget.task.isCompleted = true;
-                  hapticFeedback();
-                  completionSound();
-                  addCompletionCountEntry();
-                  _streakAndStatsHandler(schedule);
-                });
-              }
-            : null,
-        child: FlipCard(
-          fill: Fill.fillBack,
-          direction: FlipDirection.HORIZONTAL,
-          side: CardSide.FRONT,
-          front: _getCardFront(schedule),
-          back: _getCardBack(schedule),
-        ));
   }
 
   void isCompletedFalse(String schedule) {
