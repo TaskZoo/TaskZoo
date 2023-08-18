@@ -9,15 +9,24 @@ import 'package:taskzoo/widgets/onboarding/tutorial_task_cards.dart';
 import 'package:taskzoo/widgets/onboarding/tutorial_animal_builder.dart';
 
 class OnboardingScreen extends StatefulWidget {
+  final bool isFirstTime;
+
+  OnboardingScreen({required this.isFirstTime});
+
   @override
-  _OnboardingScreenState createState() => _OnboardingScreenState();
+  _OnboardingScreenState createState() =>
+      _OnboardingScreenState(isFirstTime: isFirstTime);
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  final bool isFirstTime;
   int currentIndex = 0;
   final PageController _pageController = PageController();
 
+  _OnboardingScreenState({required this.isFirstTime});
+
   void onTap(int index) {
+    // You can use isFirstTime within this class now
     setState(() {
       currentIndex = index;
       _pageController.animateToPage(index,
@@ -240,6 +249,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       bottomNavigationBar: CustomNavBar(
         currentIndex: currentIndex,
         onTap: onTap,
+        isFirstTime: widget.isFirstTime,
       ),
     );
   }

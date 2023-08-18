@@ -28,6 +28,7 @@ class _ZooPageState extends State<ZooPage> {
   void initState() {
     super.initState();
     _biomesFuture = loadBiomesData('assets/biomes_data.json');
+    _biomesFuture.then((biomesData) => precacheImages(biomesData));
   }
 
   Future<Biomes> loadBiomesData(String jsonPath) async {
@@ -36,6 +37,12 @@ class _ZooPageState extends State<ZooPage> {
     final biomesData = Biomes.fromJson(jsonData);
 
     return biomesData;
+  }
+
+  void precacheImages(Biomes biomesData) {
+    for (var biome in biomesData.biomes) {
+      precacheImage(AssetImage(biome.backgroundPath), context);
+    }
   }
 
   @override

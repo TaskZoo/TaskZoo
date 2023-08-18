@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:taskzoo/main.dart';
 
 class CustomNavBar extends StatefulWidget {
   // icon sizes
@@ -8,14 +10,29 @@ class CustomNavBar extends StatefulWidget {
 
   final int currentIndex;
   final Function onTap;
+  final bool isFirstTime;
 
-  CustomNavBar({required this.currentIndex, required this.onTap});
+  CustomNavBar(
+      {required this.currentIndex,
+      required this.onTap,
+      required this.isFirstTime});
 
   @override
   _CustomNavBarState createState() => _CustomNavBarState();
 }
 
 class _CustomNavBarState extends State<CustomNavBar> {
+  void onOnboardingComplete(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('is_first_time', false);
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+          builder: (context) => MyHomePage(title: 'TaskZoo Task Page')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +51,11 @@ class _CustomNavBarState extends State<CustomNavBar> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.pop(context); // Close the onboarding screen
+                      if (widget.isFirstTime) {
+                        onOnboardingComplete(context);
+                      } else {
+                        Navigator.pop(context);
+                      }
                     },
                     child: Padding(
                       padding: EdgeInsets.symmetric(
@@ -52,7 +73,11 @@ class _CustomNavBarState extends State<CustomNavBar> {
                       if (widget.currentIndex < 3) {
                         widget.onTap(widget.currentIndex + 1);
                       } else {
-                        Navigator.pop(context);
+                        if (widget.isFirstTime) {
+                          onOnboardingComplete(context);
+                        } else {
+                          Navigator.pop(context);
+                        }
                       }
                     },
                     child: Padding(

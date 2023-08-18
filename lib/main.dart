@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taskzoo/misc/haptic_notifier.dart';
 import 'package:taskzoo/misc/sound_notifier.dart';
 
@@ -17,13 +18,16 @@ import 'package:taskzoo/misc/theme_notifier.dart';
 import 'package:taskzoo/widgets/isar_service.dart';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:taskzoo/widgets/onboarding/onboarding_screen.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  //WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  final isFirstTime = prefs.getBool('is_first_time') ?? true;
+
   printKey();
 
   tz.initializeTimeZones();
@@ -49,8 +53,6 @@ void main() async {
 
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-  FlutterNativeSplash.remove();
-
   runApp(
     MultiProvider(
       providers: [
@@ -58,13 +60,17 @@ void main() async {
         ChangeNotifierProvider(create: (_) => HapticNotifier()),
         ChangeNotifierProvider(create: (_) => SoundNotifer())
       ],
-      child: const MyApp(),
+      child: MyApp(isFirstTime: isFirstTime),
     ),
   );
+
+  FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final bool isFirstTime;
+
+  const MyApp({Key? key, required this.isFirstTime}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -131,7 +137,9 @@ class MyApp extends StatelessWidget {
       ),
 
       themeMode: themeNotifier.currentTheme,
-      home: MyHomePage(title: 'TaskZoo Task Page'),
+      home: isFirstTime
+          ? OnboardingScreen(isFirstTime: isFirstTime)
+          : MyHomePage(title: 'TaskZoo Task Page'),
     );
   }
 }

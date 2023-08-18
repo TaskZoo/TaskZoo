@@ -79,7 +79,10 @@ class _SettingsPageState extends State<SettingsPage> {
               rightActionIcon: Icons.expand_less,
               onActionTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => OnboardingScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => OnboardingScreen(
+                            isFirstTime: false,
+                          )),
                 );
               },
             )
