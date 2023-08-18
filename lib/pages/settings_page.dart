@@ -80,9 +80,8 @@ class _SettingsPageState extends State<SettingsPage> {
               onActionTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                      builder: (context) => OnboardingScreen(
-                            isFirstTime: false, widget.themeNotifier
-                          )),
+                      builder: (context) =>
+                          OnboardingScreen(false, widget.themeNotifier)),
                 );
               },
             )

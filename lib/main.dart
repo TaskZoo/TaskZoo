@@ -138,7 +138,7 @@ class MyApp extends StatelessWidget {
 
       themeMode: themeNotifier.currentTheme,
       home: isFirstTime
-          ? OnboardingScreen(isFirstTime: isFirstTime)
+          ? OnboardingScreen(isFirstTime, themeNotifier)
           : MyHomePage(title: 'TaskZoo Task Page'),
     );
   }

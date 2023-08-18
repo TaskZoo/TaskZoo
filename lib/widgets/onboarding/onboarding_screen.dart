@@ -13,7 +13,7 @@ class OnboardingScreen extends StatefulWidget {
   final bool isFirstTime;
   final ThemeNotifier _themeNotifier;
 
-  OnboardingScreen(required this.isFirstTime, this._themeNotifier);
+  OnboardingScreen(this.isFirstTime, this._themeNotifier);
 
   @override
   _OnboardingScreenState createState() =>
