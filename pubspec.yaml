@@ -95,9 +95,11 @@ flutter:
     - assets/biomes_data/swamp/
     - assets/onboarding/
     - assets/custom_icons/
-    - assets/splash_screen_icon.png
+    - assets/splash_screen/
     - assets/TaskCompletion.wav
 
 flutter_native_splash:
-  color: "#000000"
-  image: "assets/splash_screen_icon.png"
+  color: "#222b22"
+  image: "assets/splash_screen/icon.png"
+  android: true
+  ios: true

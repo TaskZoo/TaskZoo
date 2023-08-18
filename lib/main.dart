@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:dimensions_theme/dimensions_theme.dart';
 import 'package:taskzoo/misc/haptic_notifier.dart';
@@ -19,7 +20,10 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  //WidgetsFlutterBinding.ensureInitialized();
   printKey();
 
   tz.initializeTimeZones();
@@ -44,6 +48,8 @@ void main() async {
   );
 
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+  FlutterNativeSplash.remove();
 
   runApp(
     MultiProvider(
