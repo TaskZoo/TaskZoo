@@ -99,4 +99,5 @@ flutter:
     - assets/TaskCompletion.wav
 
 flutter_native_splash:
-  color: "#42a5f5"
+  color: "#000000"
+  image: "assets/splash_screen_icon.png"
