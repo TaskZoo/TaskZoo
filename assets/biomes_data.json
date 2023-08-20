@@ -147,7 +147,7 @@
         {
             "name": "swamp",
             "primaryColor": "#1C3D32",
-            "secondaryColor": "#89C091",
+            "secondaryColor": "#376052",
             "backgroundPath": "assets/biomes_data/swamp/swamp_background_midjourney.png",
             "icon": {
                 "name": "Wetland",
