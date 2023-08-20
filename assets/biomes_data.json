@@ -127,10 +127,6 @@
                     "svgPath": "assets/biomes_data/savannah/elephant.svg"
                 },
                 {
-                    "name": "Lion",
-                    "svgPath": "assets/biomes_data/savannah/lion.svg"
-                },
-                {
                     "name": "Giraffe",
                     "svgPath": "assets/biomes_data/savannah/giraffe.svg"
                 },
@@ -141,6 +137,10 @@
                 {
                     "name": "Rhino",
                     "svgPath": "assets/biomes_data/savannah/rhino.svg"
+                },
+                {
+                    "name": "Lion",
+                    "svgPath": "assets/biomes_data/savannah/lion.svg"
                 }
             ]
         },
