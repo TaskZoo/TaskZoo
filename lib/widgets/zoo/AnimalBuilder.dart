@@ -70,7 +70,7 @@ class AnimalBuilderState extends State<AnimalBuilder> {
         await widget.service.getPreference("totalCollectedPieces");
     if (currentTotalCollectedPieces > 0 && totalSVGCount > _numShapes) {
       setState(() {
-        _numShapes += 5;
+        _numShapes += 1000;
       });
       decrementTotalCollectedPieces();
 
