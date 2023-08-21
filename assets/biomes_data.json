@@ -155,16 +155,16 @@
             },
             "animals": [
                 {
-                    "name": "Alligator",
-                    "svgPath": "assets/biomes_data/swamp/alligator.svg"
+                    "name": "Racoon",
+                    "svgPath": "assets/biomes_data/swamp/racoon.svg"
                 },
                 {
                     "name": "Frog",
                     "svgPath": "assets/biomes_data/swamp/frog.svg"
                 },
                 {
-                    "name": "Snapping Turtle",
-                    "svgPath": "assets/biomes_data/swamp/snapping_turtle.svg"
+                    "name": "Alligator",
+                    "svgPath": "assets/biomes_data/swamp/alligator.svg"
                 },
                 {
                     "name": "Heron",
