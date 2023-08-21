@@ -171,8 +171,8 @@
                     "svgPath": "assets/biomes_data/swamp/heron.svg"
                 },
                 {
-                    "name": "Snake",
-                    "svgPath": "assets/biomes_data/swamp/snake.svg"
+                    "name": "Snapping Turtle",
+                    "svgPath": "assets/biomes_data/swamp/snapping_turtle.svg"
                 },
                 {
                     "name": "Dragonfly",
