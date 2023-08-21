@@ -27,7 +27,7 @@ class _ZooPageState extends State<ZooPage> {
   @override
   void initState() {
     super.initState();
-    _biomesFuture = loadBiomesData('assets/biomes_data.json');
+    _biomesFuture = loadBiomesData('assets/biomes_data/biomes_data.json');
     _biomesFuture.then((biomesData) => precacheImages(biomesData));
   }
 
