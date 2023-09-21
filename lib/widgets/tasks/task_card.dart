@@ -593,6 +593,8 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
                 calculateNextCompletionDate(schedule, previousDate);
             updateTaskSchema();
           }
+        } else if (nextCompletionDate.isBefore(now)) {
+          nextCompletionDate = calculateNextCompletionDate(schedule, today);
         }
       }
     } else if (schedule == "monthly") {
@@ -609,6 +611,8 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
             updateTaskSchema();
           }
         }
+      } else if (nextCompletionDate.isBefore(now)) {
+        nextCompletionDate = calculateNextCompletionDate(schedule, today);
       }
     }
   }
@@ -660,7 +664,7 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
             (7 - (currentDay - getDayOfWeek(startOfWeek))) % 7;
         final nextDay = currentDate.add(Duration(days: daysUntilNextDay));
         final nextDayAtMidnight =
-            DateTime(nextDay.year, nextDay.month, nextDay.day);
+            DateTime(nextDay.year, nextDay.month, nextDay.day, 0, 0, 0);
         return nextDayAtMidnight;
 
       case 'monthly':
