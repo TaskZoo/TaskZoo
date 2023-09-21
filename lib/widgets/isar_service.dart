@@ -122,7 +122,9 @@ class IsarService {
     await for (var tasks
         in filterTasksByScheduleAndSelectedTags(schedule, selectedTags)) {
       // Calculate the count of not completed tasks
-      int count = tasks.where((task) => !task.isCompleted).length;
+      int count = tasks
+          .where((task) => !task.isCompleted && task.isMeantForToday)
+          .length;
       yield count; // Yield the updated count
     }
   }
@@ -201,7 +203,7 @@ class IsarService {
     // Listen to the stream of tasks
     await for (var tasks in tasksStream) {
       // When the stream emits new data, update the totalTaskCount and completedTaskCount
-      totalTaskCount = tasks.length;
+      totalTaskCount = tasks.where((task) => task.isMeantForToday).length;
       completedTaskCount = tasks
           .where((task) => task.isCompleted && task.isMeantForToday)
           .length;
@@ -323,8 +325,10 @@ class IsarService {
     int completedTaskCount = allTasks
         .where((task) => task.isCompleted && task.isMeantForToday)
         .length;
+    int tasksForToday = allTasks.where((task) => task.isMeantForToday).length;
+
     double completionPercent =
-        allTasks.isEmpty ? 0 : completedTaskCount / allTasks.length;
+        allTasks.isEmpty ? 0 : completedTaskCount / tasksForToday;
     return completionPercent;
   }
 
