@@ -38,7 +38,7 @@ A canvas of creativity and motivation:
 3. Earn Rewards: For each task completed, earn pieces to fill in your SVG animals.
 4. Build Your Zoo: Go to the AnimalBuilder Screen, choose an animal, and start placing your earned pieces. As you keep completing tasks, watch as the black silhouette of your chosen animal transforms into a vibrant, artful creature.
 # Getting Started
-# Note: This page will be updated when the app is publicly available on the iOS App Store. 
+## Want To Try It? Download App Here: https://apps.apple.com/us/app/taskzoo/id6467277390
 
 1. Clone the Repository:
 
