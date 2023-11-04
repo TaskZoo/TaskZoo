@@ -476,7 +476,7 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
     bool monthly,
   ) {
     if (daysOfWeek.any((day) => day == true)) {
-      return 'Weekly';
+      return 'Daily';
     } else if (weekly) {
       return 'Weekly';
     } else if (monthly) {
